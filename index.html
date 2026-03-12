@@ -870,17 +870,99 @@
       transform: none;
     }
 
+    /* ─── HAMBURGER ─── */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+      z-index: 200;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      transition: all .3s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,10,10,0.98);
+      z-index: 150;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      letter-spacing: 0.1em;
+      color: var(--white);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .mobile-nav a:hover { color: var(--red); }
+
+    /* ─── WORKS FILTER ─── */
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .filter-btn {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      padding: 8px 20px;
+      color: var(--gray);
+      background: none;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      border-color: var(--red);
+      color: var(--red);
+      background: rgba(224,16,16,0.08);
+    }
+    .work-card { transition: opacity .4s, transform .4s, border-color .3s; }
+    .work-card.hidden { opacity: 0; pointer-events: none; transform: scale(0.96); }
+
     /* ─── RESPONSIVE ─── */
     @media (max-width: 768px) {
       header { padding: 0 20px; }
       nav { display: none; }
+      .hamburger { display: flex; }
       section { padding: 60px 20px; }
       .hero-content { padding: 0 24px 40px; }
       .pickup-grid { grid-template-columns: 1fr; }
       .pickup-card.featured { grid-column: span 1; }
       .vintage-flex { flex-direction: column; }
+      .about-flex { flex-direction: column; gap: 40px; }
       .info-bar { flex-wrap: wrap; }
       .footer-top { flex-direction: column; }
+      .works-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .skills-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 2.6rem; }
     }
   </style>
 </head>
@@ -889,10 +971,20 @@
 <!-- PORTFOLIO BADGE -->
 <div class="portfolio-note">★ Portfolio Work</div>
 
+<!-- MOBILE NAV -->
+<nav class="mobile-nav" id="mobileNav" role="navigation" aria-label="モバイルナビゲーション">
+  <a href="#new" onclick="closeMobileNav()">New Arrivals</a>
+  <a href="#brands" onclick="closeMobileNav()">Brands</a>
+  <a href="#pickup" onclick="closeMobileNav()">Pick Up</a>
+  <a href="#vintage" onclick="closeMobileNav()">Vintage</a>
+  <a href="#about" onclick="closeMobileNav()">About</a>
+  <a href="#works" onclick="closeMobileNav()">Works</a>
+</nav>
+
 <!-- HEADER -->
-<header>
-  <a href="#" class="logo">MOTO<span>GEAR</span> JP</a>
-  <nav>
+<header role="banner">
+  <a href="#" class="logo" aria-label="MOTOGEAR JP トップへ">MOTO<span>GEAR</span> JP</a>
+  <nav role="navigation" aria-label="メインナビゲーション">
     <a href="#new">New Arrivals</a>
     <a href="#brands">Brands</a>
     <a href="#pickup">Pick Up</a>
@@ -900,6 +992,11 @@
     <a href="#about">About</a>
     <a href="#works">Works</a>
   </nav>
+  <button class="hamburger" id="hamburger" aria-label="メニューを開く" aria-expanded="false" aria-controls="mobileNav">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 </header>
 
 <!-- HERO -->
@@ -1261,11 +1358,17 @@
       <h2 class="section-title">Works</h2>
     </div>
   </div>
+  <div class="filter-bar" role="group" aria-label="カテゴリーフィルター">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="web">Web Design</button>
+    <button class="filter-btn" data-filter="visual">Visual</button>
+    <button class="filter-btn" data-filter="corporate">Corporate</button>
+  </div>
   <div class="works-grid">
-    <div class="work-card fade-in">
+    <div class="work-card fade-in" data-category="web">
       <div class="work-thumb">
-        <img src="https://images.unsplash.com/photo-1558981001-1995369a39cd?w=800&q=80" alt="MotoGear JP">
-        <div class="work-thumb-overlay"></div>
+        <img src="https://images.unsplash.com/photo-1558981001-1995369a39cd?w=800&q=80" alt="MotoGear JP バイクパーツECサイトのデスクトップビュー" loading="lazy">
+        <div class="work-thumb-overlay" aria-hidden="true"></div>
       </div>
       <div class="work-info">
         <div class="work-category">Motorcycle Parts / EC Site</div>
@@ -1279,10 +1382,10 @@
         </div>
       </div>
     </div>
-    <div class="work-card fade-in">
+    <div class="work-card fade-in" data-category="corporate">
       <div class="work-thumb">
-        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80" alt="Corporate Site">
-        <div class="work-thumb-overlay"></div>
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80" alt="コーポレートサイトのデスクトップビュー" loading="lazy">
+        <div class="work-thumb-overlay" aria-hidden="true"></div>
       </div>
       <div class="work-info">
         <div class="work-category">Corporate / Web Design</div>
@@ -1295,10 +1398,10 @@
         </div>
       </div>
     </div>
-    <div class="work-card fade-in">
+    <div class="work-card fade-in" data-category="visual">
       <div class="work-thumb">
-        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80" alt="Visual Design">
-        <div class="work-thumb-overlay"></div>
+        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80" alt="ブランドビジュアルデザインのサンプル" loading="lazy">
+        <div class="work-thumb-overlay" aria-hidden="true"></div>
       </div>
       <div class="work-info">
         <div class="work-category">Visual Design / Branding</div>
@@ -1358,7 +1461,44 @@
 </footer>
 
 <script>
-  // Scroll fade-in
+  // ── ハンバーガーメニュー ──
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileNav.classList.toggle('open');
+    hamburger.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  function closeMobileNav() {
+    mobileNav.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  // ── Worksフィルター ──
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const workCards = document.querySelectorAll('.work-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      workCards.forEach(card => {
+        if (filter === 'all' || card.dataset.category === filter) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // ── スクロールフェードイン ──
   const observer = new IntersectionObserver(entries => {
     entries.forEach((e, i) => {
       if (e.isIntersecting) {
@@ -1370,7 +1510,23 @@
 
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-  // Smooth scroll
+  // ── スキルバーアニメーション ──
+  const skillObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.skill-bar').forEach(bar => {
+          const width = bar.style.width;
+          bar.style.width = '0';
+          setTimeout(() => { bar.style.width = width; }, 200);
+        });
+        skillObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.skills-grid').forEach(el => skillObserver.observe(el));
+
+  // ── スムーススクロール ──
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const target = document.querySelector(a.getAttribute('href'));
