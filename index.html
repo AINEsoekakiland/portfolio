@@ -252,7 +252,7 @@
       margin-bottom: 8px;
     }
     .work-desc { font-size: 0.78rem; color: var(--gray); line-height: 1.6; margin-bottom: 16px; }
-    .work-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .work-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
     .work-tag {
       font-family: 'Rajdhani', sans-serif;
       font-size: 0.62rem;
@@ -262,6 +262,136 @@
       border: 1px solid var(--border);
       padding: 3px 10px;
       color: var(--gray);
+    }
+    .work-detail-btn {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: none;
+      border: 1px solid var(--red);
+      color: var(--red);
+      padding: 8px 20px;
+      cursor: pointer;
+      transition: all .2s;
+      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+    }
+    .work-detail-btn:hover { background: var(--red); color: #fff; }
+
+    /* ─── MODAL ─── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--red);
+      max-width: 680px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: translateY(30px);
+      transition: transform .3s;
+    }
+    .modal-overlay.open .modal { transform: translateY(0); }
+    .modal-header {
+      padding: 28px 32px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .modal-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 0.06em;
+    }
+    .modal-close {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--gray);
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all .2s;
+      flex-shrink: 0;
+    }
+    .modal-close:hover { border-color: var(--red); color: var(--red); }
+    .modal-body { padding: 28px 32px; }
+    .modal-section { margin-bottom: 28px; }
+    .modal-section:last-child { margin-bottom: 0; }
+    .modal-section-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .modal-section-label::before {
+      content: '';
+      width: 16px;
+      height: 2px;
+      background: var(--red);
+    }
+    .modal-section p {
+      font-size: 0.88rem;
+      color: var(--light-gray);
+      line-height: 1.8;
+    }
+    .modal-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .modal-list li {
+      font-size: 0.85rem;
+      color: var(--light-gray);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .modal-list li::before {
+      content: '—';
+      color: var(--red);
+      flex-shrink: 0;
+    }
+    .modal-tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .modal-tech-tag {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: rgba(224,16,16,0.1);
+      border: 1px solid var(--red);
+      color: var(--red);
+      padding: 4px 14px;
     }
 
     /* ─── HERO ─── */
@@ -1380,6 +1510,7 @@
           <span class="work-tag">JavaScript</span>
           <span class="work-tag">Responsive</span>
         </div>
+        <button class="work-detail-btn" onclick="openModal('modal1')" aria-haspopup="dialog">制作プロセスを見る</button>
       </div>
     </div>
     <div class="work-card fade-in" data-category="corporate">
@@ -1396,6 +1527,7 @@
           <span class="work-tag">HTML</span>
           <span class="work-tag">CSS</span>
         </div>
+        <button class="work-detail-btn" onclick="openModal('modal2')" aria-haspopup="dialog">制作プロセスを見る</button>
       </div>
     </div>
     <div class="work-card fade-in" data-category="visual">
@@ -1412,10 +1544,133 @@
           <span class="work-tag">Illustrator</span>
           <span class="work-tag">Branding</span>
         </div>
+        <button class="work-detail-btn" onclick="openModal('modal3')" aria-haspopup="dialog">制作プロセスを見る</button>
       </div>
     </div>
   </div>
 </section>
+
+<!-- MODAL 1: MOTOGEAR JP -->
+<div class="modal-overlay" id="modal1" role="dialog" aria-modal="true" aria-labelledby="modal1-title" onclick="closeModalOutside(event, 'modal1')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal1-title">MOTOGEAR JP</div>
+      <button class="modal-close" onclick="closeModal('modal1')" aria-label="閉じる">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-label">制作目的</div>
+        <p>バイクパーツ輸入販売サイトのUI/UX改善を目的としたリニューアルデザイン。既存サイトの情報量は豊富だが視認性が低く、ユーザーが求める情報に辿り着きにくい課題を解決するために制作。</p>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-label">工夫したポイント</div>
+        <ul class="modal-list">
+          <li>ダークテーマを採用し、バイク・モータースポーツのブランドイメージと統一</li>
+          <li>IntersectionObserver APIを使ったスクロールフェードインアニメーション</li>
+          <li>CSS Grid・Flexboxを組み合わせた柔軟なレイアウト設計</li>
+          <li>ホバーエフェクトとグラデーションオーバーレイで視覚的な奥行きを演出</li>
+          <li>カテゴリーフィルター機能でユーザーの目的別閲覧をサポート</li>
+        </ul>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-label">使用技術</div>
+        <div class="modal-tech-tags">
+          <span class="modal-tech-tag">HTML5</span>
+          <span class="modal-tech-tag">CSS3</span>
+          <span class="modal-tech-tag">JavaScript</span>
+          <span class="modal-tech-tag">GitHub Pages</span>
+          <span class="modal-tech-tag">Google Fonts</span>
+          <span class="modal-tech-tag">IntersectionObserver API</span>
+        </div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-label">レスポンシブ対応</div>
+        <ul class="modal-list">
+          <li>768px・480pxの2段階ブレイクポイントで対応</li>
+          <li>スマホ時はハンバーガーメニューに切り替え</li>
+          <li>グリッドレイアウトをモバイルで1カラムに自動調整</li>
+          <li>clamp()関数で文字サイズをビューポートに合わせて流動的に変化</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 2: CORPORATE SITE -->
+<div class="modal-overlay" id="modal2" role="dialog" aria-modal="true" aria-labelledby="modal2-title" onclick="closeModalOutside(event, 'modal2')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal2-title">CORPORATE SITE</div>
+      <button class="modal-close" onclick="closeModal('modal2')" aria-label="閉じる">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-label">制作目的</div>
+        <p>中小企業向けコーポレートサイトのUIデザイン。信頼感・清潔感を重視しながら、ブランドの個性を打ち出せるデザインを目指した。Figmaでワイヤーフレーム→プロトタイプ→実装の一貫したプロセスで制作。</p>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-label">工夫したポイント</div>
+        <ul class="modal-list">
+          <li>Figmaでコンポーネントを設計し、デザインの一貫性を担保</li>
+          <li>余白・タイポグラフィを意識した読みやすいレイアウト</li>
+          <li>CSSカスタムプロパティでカラーテーマを一元管理</li>
+          <li>ファーストビューのCTAボタンを目立たせてコンバージョンを意識</li>
+        </ul>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-label">使用技術</div>
+        <div class="modal-tech-tags">
+          <span class="modal-tech-tag">Figma</span>
+          <span class="modal-tech-tag">HTML5</span>
+          <span class="modal-tech-tag">CSS3</span>
+          <span class="modal-tech-tag">CSS Variables</span>
+          <span class="modal-tech-tag">GitHub Pages</span>
+        </div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-label">レスポンシブ対応</div>
+        <ul class="modal-list">
+          <li>モバイルファーストで設計し、PC向けに拡張</li>
+          <li>ナビゲーションをスマホ時にドロワーメニューへ切り替え</li>
+          <li>画像をobject-fit: coverで比率を保ちながらトリミング</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL 3: BRAND VISUAL -->
+<div class="modal-overlay" id="modal3" role="dialog" aria-modal="true" aria-labelledby="modal3-title" onclick="closeModalOutside(event, 'modal3')">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal3-title">BRAND VISUAL</div>
+      <button class="modal-close" onclick="closeModal('modal3')" aria-label="閉じる">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-label">制作目的</div>
+        <p>新規ブランドのビジュアルアイデンティティ構築。ロゴ・バナー・SNS投稿素材を一貫したトーン&マナーで制作し、ブランドの世界観を統一することを目的とした。</p>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-label">工夫したポイント</div>
+        <ul class="modal-list">
+          <li>ブランドカラーとフォントを定義したスタイルガイドを先に作成</li>
+          <li>Illustratorでロゴをベクターで制作し、あらゆるサイズに対応</li>
+          <li>Photoshopでバナーのビジュアル合成・写真レタッチを実施</li>
+          <li>SNS各プラットフォームの推奨サイズに合わせてテンプレート化</li>
+        </ul>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-label">使用技術</div>
+        <div class="modal-tech-tags">
+          <span class="modal-tech-tag">Adobe Photoshop</span>
+          <span class="modal-tech-tag">Adobe Illustrator</span>
+          <span class="modal-tech-tag">Figma</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer>
@@ -1461,6 +1716,28 @@
 </footer>
 
 <script>
+  // ── モーダル ──
+  function openModal(id) {
+    const modal = document.getElementById(id);
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function closeModalOutside(e, id) {
+    if (e.target === document.getElementById(id)) closeModal(id);
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.open').forEach(m => {
+        m.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    }
+  });
+
   // ── ハンバーガーメニュー ──
   const hamburger = document.getElementById('hamburger');
   const mobileNav = document.getElementById('mobileNav');
