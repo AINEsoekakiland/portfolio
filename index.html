@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MotoGear JP — バイクパーツ専門店</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@300;400;700&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --dark: #111111;
+      --panel: #161616;
+      --border: #2a2a2a;
+      --red: #e01010;
+      --red-dark: #9e0a0a;
+      --orange: #ff6600;
+      --white: #f0f0f0;
+      --gray: #888;
+      --light-gray: #bbb;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 2px solid var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 64px;
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.15em;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .logo span { color: var(--red); }
+
+    nav a {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--light-gray);
+      text-decoration: none;
+      margin-left: 32px;
+      transition: color .2s;
+    }
+    nav a:hover { color: var(--red); }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      height: 580px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+      background: #0a0a0a;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(120deg, rgba(224,16,16,0.18) 0%, transparent 55%),
+        linear-gradient(to bottom, transparent 30%, rgba(10,10,10,0.95) 100%),
+        url('https://images.unsplash.com/photo-1558981001-1995369a39cd?w=1400&q=80') center/cover no-repeat;
+      animation: heroZoom 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes heroZoom {
+      from { transform: scale(1); }
+      to   { transform: scale(1.04); }
+    }
+
+    /* diagonal red slash */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 6px;
+      height: 100%;
+      background: var(--red);
+      transform: skewX(-4deg);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 60px 60px;
+      max-width: 700px;
+    }
+
+    .hero-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-label::before {
+      content: '';
+      width: 30px;
+      height: 2px;
+      background: var(--red);
+    }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      line-height: 0.95;
+      letter-spacing: 0.04em;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 em {
+      color: var(--red);
+      font-style: normal;
+    }
+
+    .hero p {
+      font-size: 0.95rem;
+      color: var(--light-gray);
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 32px;
+    }
+
+    .btn-group { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    .btn {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 12px 28px;
+      text-decoration: none;
+      transition: all .25s;
+      display: inline-block;
+    }
+    .btn-primary {
+      background: var(--red);
+      color: #fff;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+    }
+    .btn-primary:hover { background: #ff2020; }
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--light-gray);
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+    }
+    .btn-outline:hover { border-color: var(--red); color: var(--red); }
+
+    /* ─── TICKER ─── */
+    .ticker-wrap {
+      background: var(--red);
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 8px 0;
+    }
+    .ticker {
+      display: inline-block;
+      animation: ticker 30s linear infinite;
+    }
+    .ticker span {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #fff;
+      padding: 0 40px;
+    }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ─── SECTION COMMON ─── */
+    section { padding: 80px 40px; }
+
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 48px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 20px;
+    }
+
+    .section-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: 0.06em;
+    }
+
+    /* ─── NEW ARRIVALS ─── */
+    .new-arrivals { background: var(--dark); }
+
+    .arrivals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2px;
+    }
+
+    .arrival-card {
+      position: relative;
+      background: var(--panel);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+    }
+
+    .arrival-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease, filter .5s;
+      filter: grayscale(30%);
+    }
+
+    .arrival-card:hover img {
+      transform: scale(1.08);
+      filter: grayscale(0%);
+    }
+
+    .arrival-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, transparent 55%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 20px;
+      transition: background .3s;
+    }
+
+    .arrival-card:hover .arrival-overlay {
+      background: linear-gradient(to top, rgba(180,8,8,0.7) 0%, transparent 70%);
+    }
+
+    .arrival-badge {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--red);
+      background: rgba(224,16,16,0.15);
+      border: 1px solid var(--red);
+      display: inline-block;
+      padding: 2px 8px;
+      margin-bottom: 8px;
+      width: fit-content;
+    }
+
+    .arrival-name {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      line-height: 1.3;
+    }
+
+    .arrival-sub {
+      font-size: 0.75rem;
+      color: var(--gray);
+      margin-top: 4px;
+    }
+
+    /* ─── BRANDS ─── */
+    .brands-section { background: var(--black); }
+
+    .brands-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 2px;
+    }
+
+    .brand-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      transition: border-color .3s, background .3s;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .brand-card:hover {
+      border-color: var(--red);
+      background: #1a0808;
+    }
+
+    .brand-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      color: var(--red);
+      transition: background .3s;
+    }
+    .brand-card:hover .brand-icon { background: var(--red); color: #fff; }
+
+    .brand-name {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--light-gray);
+      text-align: center;
+    }
+
+    .brand-desc {
+      font-size: 0.72rem;
+      color: var(--gray);
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    /* ─── PICKUP MODELS ─── */
+    .pickup-section { background: var(--dark); }
+
+    .pickup-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+
+    .pickup-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--panel);
+      min-height: 340px;
+      display: flex;
+      align-items: flex-end;
+      cursor: pointer;
+    }
+
+    .pickup-card.featured { grid-column: span 2; min-height: 460px; }
+
+    .pickup-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .6s ease;
+    }
+
+    .pickup-card:hover img { transform: scale(1.05); }
+
+    .pickup-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(60deg, rgba(10,10,10,0.88) 30%, transparent 100%);
+    }
+
+    .pickup-info {
+      position: relative;
+      z-index: 2;
+      padding: 36px;
+    }
+
+    .pickup-maker {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 8px;
+    }
+
+    .pickup-model {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.8rem);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .pickup-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      padding: 3px 10px;
+      color: var(--gray);
+    }
+
+    /* ─── SPECS / INFO BAR ─── */
+    .info-bar {
+      background: var(--panel);
+      border-top: 2px solid var(--red);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+    }
+
+    .info-item {
+      flex: 1;
+      min-width: 160px;
+      padding: 28px 32px;
+      border-right: 1px solid var(--border);
+    }
+
+    .info-item:last-child { border-right: none; }
+
+    .info-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.6rem;
+      color: var(--red);
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+
+    .info-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-top: 4px;
+    }
+
+    /* ─── VINTAGE ─── */
+    .vintage-section {
+      background: var(--black);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .vintage-section::before {
+      content: 'VINTAGE';
+      position: absolute;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18vw;
+      color: rgba(255,255,255,0.02);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .vintage-flex {
+      display: flex;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .vintage-image {
+      flex: 1;
+      min-width: 300px;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .vintage-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: sepia(30%) contrast(1.1);
+      transition: transform .5s;
+    }
+
+    .vintage-image:hover img { transform: scale(1.04); }
+
+    /* red corner accent */
+    .vintage-image::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 60px; height: 4px;
+      background: var(--red);
+    }
+
+    .vintage-text { flex: 1; }
+
+    .vintage-text h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      letter-spacing: 0.06em;
+      margin-bottom: 16px;
+    }
+
+    .vintage-text p {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: var(--light-gray);
+      margin-bottom: 24px;
+    }
+
+    .inline-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+
+    .inline-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.85rem;
+      color: var(--light-gray);
+    }
+
+    .inline-list li::before {
+      content: '';
+      width: 20px;
+      height: 2px;
+      background: var(--red);
+      flex-shrink: 0;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #070707;
+      border-top: 2px solid var(--red);
+      padding: 48px 40px 32px;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.15em;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .footer-logo span { color: var(--red); }
+
+    .footer-tagline {
+      font-size: 0.78rem;
+      color: var(--gray);
+      margin-top: 8px;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-links h4 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 16px;
+    }
+
+    .footer-links ul { list-style: none; }
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+    .footer-links a {
+      font-size: 0.82rem;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--red); }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-bottom p {
+      font-size: 0.72rem;
+      color: var(--gray);
+    }
+
+    .footer-credit {
+      font-size: 0.72rem;
+      color: var(--gray);
+      text-align: right;
+    }
+    .footer-credit strong { color: var(--red); }
+
+    /* ─── PORTFOLIO NOTE ─── */
+    .portfolio-note {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--red);
+      color: #fff;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 10px 18px;
+      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+      z-index: 999;
+      box-shadow: 0 4px 24px rgba(224,16,16,0.4);
+    }
+
+    /* ─── SCROLL ANIMATION ─── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      header { padding: 0 20px; }
+      nav { display: none; }
+      section { padding: 60px 20px; }
+      .hero-content { padding: 0 24px 40px; }
+      .pickup-grid { grid-template-columns: 1fr; }
+      .pickup-card.featured { grid-column: span 1; }
+      .vintage-flex { flex-direction: column; }
+      .info-bar { flex-wrap: wrap; }
+      .footer-top { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- PORTFOLIO BADGE -->
+<div class="portfolio-note">★ Portfolio Work</div>
+
+<!-- HEADER -->
+<header>
+  <a href="#" class="logo">MOTO<span>GEAR</span> JP</a>
+  <nav>
+    <a href="#new">New Arrivals</a>
+    <a href="#brands">Brands</a>
+    <a href="#pickup">Pick Up</a>
+    <a href="#vintage">Vintage</a>
+    <a href="#">お問い合わせ</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-label">旧車から最新バイク部品まで</div>
+    <h1>RACE-PROVEN<br><em>MOTORCYCLE</em><br>PARTS</h1>
+    <p>欧州トップブランドの厳選パーツを国内最速でお届け。サーキットからストリートまで、走りを極める全てのライダーへ。</p>
+    <div class="btn-group">
+      <a href="#new" class="btn btn-primary">New Arrivals</a>
+      <a href="#brands" class="btn btn-outline">Brands</a>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span>R&amp;G Racing Products</span>
+    <span>•</span>
+    <span>Barkbusters</span>
+    <span>•</span>
+    <span>MOTOGRAFIX</span>
+    <span>•</span>
+    <span>DENALI</span>
+    <span>•</span>
+    <span>ATHENA</span>
+    <span>•</span>
+    <span>Eazi-Grip™</span>
+    <span>•</span>
+    <span>KAOKO</span>
+    <span>•</span>
+    <span>PYRAMID</span>
+    <span>•</span>
+    <span>R&amp;G Racing Products</span>
+    <span>•</span>
+    <span>Barkbusters</span>
+    <span>•</span>
+    <span>MOTOGRAFIX</span>
+    <span>•</span>
+    <span>DENALI</span>
+    <span>•</span>
+    <span>ATHENA</span>
+    <span>•</span>
+    <span>Eazi-Grip™</span>
+    <span>•</span>
+    <span>KAOKO</span>
+    <span>•</span>
+    <span>PYRAMID</span>
+    <span>•</span>
+  </div>
+</div>
+
+<!-- INFO BAR -->
+<div class="info-bar">
+  <div class="info-item fade-in">
+    <div class="info-num">800<span style="font-size:1.2rem">+</span></div>
+    <div class="info-label">取扱製品数</div>
+  </div>
+  <div class="info-item fade-in">
+    <div class="info-num">8</div>
+    <div class="info-label">厳選ブランド</div>
+  </div>
+  <div class="info-item fade-in">
+    <div class="info-num">30<span style="font-size:1.2rem">+</span></div>
+    <div class="info-label">対応メーカー</div>
+  </div>
+  <div class="info-item fade-in">
+    <div class="info-num">週次</div>
+    <div class="info-label">新製品入荷</div>
+  </div>
+</div>
+
+<!-- NEW ARRIVALS -->
+<section class="new-arrivals" id="new">
+  <div class="section-header fade-in">
+    <div>
+      <div class="section-label">Latest Updates</div>
+      <h2 class="section-title">New Arrivals</h2>
+    </div>
+    <a href="#" class="btn btn-outline" style="font-size:0.75rem;padding:10px 20px;">View All</a>
+  </div>
+  <div class="arrivals-grid">
+
+    <div class="arrival-card fade-in">
+      <img src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=600&q=80" alt="Fender Kit" loading="lazy">
+      <div class="arrival-overlay">
+        <div class="arrival-badge">New</div>
+        <div class="arrival-name">YAMAHA TRACER9/GT(25-)<br>R&amp;G フェンダーレスキット</div>
+        <div class="arrival-sub">2026.03.06 発売</div>
+      </div>
+    </div>
+
+    <div class="arrival-card fade-in">
+      <img src="https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?w=600&q=80" alt="Handguard" loading="lazy">
+      <div class="arrival-overlay">
+        <div class="arrival-badge">New</div>
+        <div class="arrival-name">SUZUKI DR-Z4S/SM(25-)<br>Barkbusters ハンドルガード</div>
+        <div class="arrival-sub">2026.02.26 発売</div>
+      </div>
+    </div>
+
+    <div class="arrival-card fade-in">
+      <img src="https://images.unsplash.com/photo-1603399587603-90c2f1e7b07b?w=600&q=80" alt="Tank Pad" loading="lazy">
+      <div class="arrival-overlay">
+        <div class="arrival-badge">New</div>
+        <div class="arrival-name">YAMAHA TRACER9 GT+(23/24)<br>MOTOGRAFIX TANK PAD</div>
+        <div class="arrival-sub">2026.02.19 発売</div>
+      </div>
+    </div>
+
+    <div class="arrival-card fade-in">
+      <img src="https://images.unsplash.com/photo-1449426468159-d96dbf08f19f?w=600&q=80" alt="Radiator Guard" loading="lazy">
+      <div class="arrival-overlay">
+        <div class="arrival-badge">New</div>
+        <div class="arrival-name">SUZUKI GSX-8T/TT(25-)<br>R&amp;G PROラジエターガード</div>
+        <div class="arrival-sub">2026.02.05 発売</div>
+      </div>
+    </div>
+
+    <div class="arrival-card fade-in">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Bore Up Kit" loading="lazy">
+      <div class="arrival-overlay">
+        <div class="arrival-badge">New</div>
+        <div class="arrival-name">YAMAHA YZ250F<br>ATHENA ボアアップキット</div>
+        <div class="arrival-sub">2026.01.28 発売</div>
+      </div>
+    </div>
+
+    <div class="arrival-card fade-in">
+      <img src="https://images.unsplash.com/photo-1609630875171-b1321377ee65?w=600&q=80" alt="Crash Protector" loading="lazy">
+      <div class="arrival-overlay">
+        <div class="arrival-badge">New</div>
+        <div class="arrival-name">HONDA CB1000 HORNET/SP(25-)<br>Barkbusters ハンドルガード</div>
+        <div class="arrival-sub">2026.01.07 発売</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BRANDS -->
+<section class="brands-section" id="brands">
+  <div class="section-header fade-in">
+    <div>
+      <div class="section-label">Partners</div>
+      <h2 class="section-title">取扱ブランド</h2>
+    </div>
+  </div>
+  <div class="brands-grid">
+    <a href="#" class="brand-card fade-in">
+      <div class="brand-icon">R</div>
+      <div class="brand-name">R&amp;G Racing</div>
+      <div class="brand-desc">マン島TT・BSB・WSBで支持される英国レーシングブランド</div>
+    </a>
+    <a href="#" class="brand-card fade-in">
+      <div class="brand-icon">B</div>
+      <div class="brand-name">Barkbusters</div>
+      <div class="brand-desc">オフロードライダーが信頼するハンドルガード専門ブランド</div>
+    </a>
+    <a href="#" class="brand-card fade-in">
+      <div class="brand-icon">M</div>
+      <div class="brand-name">MOTOGRAFIX</div>
+      <div class="brand-desc">高精度3Dゲルプロテクターのパイオニア</div>
+    </a>
+    <a href="#" class="brand-card fade-in">
+      <div class="brand-icon">D</div>
+      <div class="brand-name">DENALI</div>
+      <div class="brand-desc">高性能補助ライト・電装カスタムパーツ</div>
+    </a>
+    <a href="#" class="brand-card fade-in">
+      <div class="brand-icon">A</div>
+      <div class="brand-name">ATHENA</div>
+      <div class="brand-desc">欧州モトクロスで定評のボアアップ・エンジンパーツ</div>
+    </a>
+    <a href="#" class="brand-card fade-in">
+      <div class="brand-icon">E</div>
+      <div class="brand-name">Eazi-Grip™</div>
+      <div class="brand-desc">グリップ力を最大化するタンクパッドの世界標準</div>
+    </a>
+    <a href="#" class="brand-card fade-in">
+      <div class="brand-icon">K</div>
+      <div class="brand-name">KAOKO</div>
+      <div class="brand-desc">スロットルスタビライザーのオリジナルブランド</div>
+    </a>
+    <a href="#" class="brand-card fade-in">
+      <div class="brand-icon">P</div>
+      <div class="brand-name">PYRAMID</div>
+      <div class="brand-desc">英国製フェンダーエクステンダー・エアロパーツ</div>
+    </a>
+  </div>
+</section>
+
+<!-- PICKUP MODELS -->
+<section class="pickup-section" id="pickup">
+  <div class="section-header fade-in">
+    <div>
+      <div class="section-label">Recommended</div>
+      <h2 class="section-title">PICK UP MODEL</h2>
+    </div>
+    <a href="#" class="btn btn-outline" style="font-size:0.75rem;padding:10px 20px;">All Models</a>
+  </div>
+  <div class="pickup-grid">
+
+    <div class="pickup-card featured fade-in">
+      <img src="https://images.unsplash.com/photo-1558981033-0f0309284409?w=1200&q=80" alt="BMW S1000RR">
+      <div class="pickup-overlay"></div>
+      <div class="pickup-info">
+        <div class="pickup-maker">BMW</div>
+        <div class="pickup-model">S1000RR</div>
+        <div class="pickup-tags">
+          <span class="tag">フェンダーレス</span>
+          <span class="tag">クラッシュプロテクター</span>
+          <span class="tag">MOTOGRAFIX</span>
+          <span class="tag">R&amp;G</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pickup-card fade-in">
+      <img src="https://images.unsplash.com/photo-1609630875171-b1321377ee65?w=800&q=80" alt="KAWASAKI">
+      <div class="pickup-overlay"></div>
+      <div class="pickup-info">
+        <div class="pickup-maker">KAWASAKI</div>
+        <div class="pickup-model">Z900RS</div>
+        <div class="pickup-tags">
+          <span class="tag">ラジエターガード</span>
+          <span class="tag">フェンダーレス</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pickup-card fade-in">
+      <img src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=800&q=80" alt="HONDA CBR">
+      <div class="pickup-overlay"></div>
+      <div class="pickup-info">
+        <div class="pickup-maker">HONDA</div>
+        <div class="pickup-model">CBR1000RR-R</div>
+        <div class="pickup-tags">
+          <span class="tag">エンジンカバー</span>
+          <span class="tag">Eazi-Grip</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- VINTAGE -->
+<section class="vintage-section" id="vintage">
+  <div class="vintage-flex">
+    <div class="vintage-image fade-in">
+      <img src="https://images.unsplash.com/photo-1545235617-7a424c1a60cc?w=800&q=80" alt="Vintage Bikes">
+    </div>
+    <div class="vintage-text fade-in">
+      <div class="section-label">Heritage Line</div>
+      <h3>VINTAGE PARTS<br>LINEUP</h3>
+      <p>旧車の魅力を次の世代へ。入手困難なパーツも、欧州トップパーツメーカーのネットワークを通じて国内にお届けします。</p>
+      <ul class="inline-list">
+        <li>SR400 / SR500 専用パーツ</li>
+        <li>ATHENA 2ストロークシリンダーキット</li>
+        <li>ヴィンテージガスケットセット</li>
+        <li>クラシックラインナップ随時更新</li>
+      </ul>
+      <a href="#" class="btn btn-primary">Vintage 一覧を見る</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <a href="#" class="footer-logo">MOTO<span>GEAR</span> JP</a>
+      <p class="footer-tagline">旧車から最新バイク部品まで — 走りを極める全てのライダーへ</p>
+    </div>
+    <div class="footer-links">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="#">R&amp;G Racing Products</a></li>
+        <li><a href="#">Barkbusters</a></li>
+        <li><a href="#">MOTOGRAFIX</a></li>
+        <li><a href="#">DENALI</a></li>
+        <li><a href="#">ATHENA</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Category</h4>
+      <ul>
+        <li><a href="#">フェンダーレスキット</a></li>
+        <li><a href="#">クラッシュプロテクター</a></li>
+        <li><a href="#">ラジエターガード</a></li>
+        <li><a href="#">タンクパッド</a></li>
+        <li><a href="#">ヴィンテージ</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Info</h4>
+      <ul>
+        <li><a href="#">新着情報</a></li>
+        <li><a href="#">PickUpモデル</a></li>
+        <li><a href="#">お問い合わせ</a></li>
+        <li><a href="#">プライバシーポリシー</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 MotoGear JP. All rights reserved.</p>
+    <p class="footer-credit">Web Design Portfolio — <strong>Designed for NEXXS JAPAN Application</strong></p>
+  </div>
+</footer>
+
+<script>
+  // Scroll fade-in
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
