@@ -1,1573 +1,1689 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MotoGear JP — バイクパーツ専門店</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@300;400;700&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --black: #0a0a0a;
-      --dark: #111111;
-      --panel: #161616;
-      --border: #2a2a2a;
-      --red: #e01010;
-      --red-dark: #9e0a0a;
-      --orange: #ff6600;
-      --white: #f0f0f0;
-      --gray: #888;
-      --light-gray: #bbb;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Noto Sans JP', sans-serif;
-      background: var(--black);
-      color: var(--white);
-      overflow-x: hidden;
-    }
-
-    /* ─── HEADER ─── */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(10,10,10,0.95);
-      backdrop-filter: blur(8px);
-      border-bottom: 2px solid var(--red);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 40px;
-      height: 64px;
-    }
-
-    .logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2rem;
-      letter-spacing: 0.15em;
-      color: var(--white);
-      text-decoration: none;
-    }
-    .logo span { color: var(--red); }
-
-    nav a {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--light-gray);
-      text-decoration: none;
-      margin-left: 32px;
-      transition: color .2s;
-    }
-    nav a:hover { color: var(--red); }
-
-    /* ─── ABOUT ─── */
-    .about-section {
-      background: var(--black);
-      position: relative;
-      overflow: hidden;
-    }
-    .about-section::before {
-      content: 'ABOUT';
-      position: absolute;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 18vw;
-      color: rgba(255,255,255,0.02);
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      white-space: nowrap;
-      pointer-events: none;
-    }
-    .about-flex {
-      display: flex;
-      gap: 80px;
-      align-items: center;
-    }
-    .about-left { flex: 1; }
-    .about-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3rem, 6vw, 5rem);
-      letter-spacing: 0.08em;
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-    .about-name span { color: var(--red); }
-    .about-title {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1rem;
-      font-weight: 600;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 28px;
-    }
-    .about-text {
-      font-size: 0.95rem;
-      line-height: 1.9;
-      color: var(--light-gray);
-      max-width: 480px;
-    }
-    .about-right {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .about-stat {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--red);
-      padding: 20px 24px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      transition: border-color .3s;
-    }
-    .about-stat:hover { border-color: var(--red); background: #1a0808; }
-    .about-stat-icon {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.8rem;
-      color: var(--red);
-      min-width: 40px;
-    }
-    .about-stat-text { font-size: 0.85rem; color: var(--light-gray); line-height: 1.5; }
-    .about-stat-label {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gray);
-      margin-bottom: 4px;
-    }
-
-    /* ─── SKILLS ─── */
-    .skills-section { background: var(--dark); }
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 2px;
-    }
-    .skill-card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      padding: 36px 28px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      transition: border-color .3s, background .3s;
-      position: relative;
-      overflow: hidden;
-    }
-    .skill-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 0; height: 2px;
-      background: var(--red);
-      transition: width .4s ease;
-    }
-    .skill-card:hover::after { width: 100%; }
-    .skill-card:hover { border-color: var(--red); background: #1a0808; }
-    .skill-icon {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2.4rem;
-      color: var(--red);
-      line-height: 1;
-    }
-    .skill-name {
-      font-family: 'Rajdhani', sans-serif;
-      font-weight: 700;
-      font-size: 1rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-    .skill-desc { font-size: 0.78rem; color: var(--gray); line-height: 1.6; }
-    .skill-bar-wrap {
-      background: var(--border);
-      height: 3px;
-      width: 100%;
-      margin-top: 4px;
-    }
-    .skill-bar {
-      height: 3px;
-      background: var(--red);
-      transition: width 1.2s ease;
-    }
-
-    /* ─── WORKS ─── */
-    .works-section { background: var(--black); }
-    .works-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 2px;
-    }
-    .work-card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      overflow: hidden;
-      transition: border-color .3s;
-    }
-    .work-card:hover { border-color: var(--red); }
-    .work-thumb {
-      aspect-ratio: 16/9;
-      overflow: hidden;
-      background: var(--border);
-      position: relative;
-    }
-    .work-thumb img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transition: transform .5s;
-      filter: grayscale(20%);
-    }
-    .work-card:hover .work-thumb img { transform: scale(1.05); filter: grayscale(0%); }
-    .work-thumb-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(224,16,16,0);
-      transition: background .3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .work-card:hover .work-thumb-overlay { background: rgba(224,16,16,0.15); }
-    .work-info { padding: 24px; }
-    .work-category {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 8px;
-    }
-    .work-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.4rem;
-      letter-spacing: 0.06em;
-      margin-bottom: 8px;
-    }
-    .work-desc { font-size: 0.78rem; color: var(--gray); line-height: 1.6; margin-bottom: 16px; }
-    .work-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
-    .work-tag {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.62rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      border: 1px solid var(--border);
-      padding: 3px 10px;
-      color: var(--gray);
-    }
-    .work-detail-btn {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      background: none;
-      border: 1px solid var(--red);
-      color: var(--red);
-      padding: 8px 20px;
-      cursor: pointer;
-      transition: all .2s;
-      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
-    }
-    .work-detail-btn:hover { background: var(--red); color: #fff; }
-
-    /* ─── MODAL ─── */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.92);
-      z-index: 500;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .3s;
-    }
-    .modal-overlay.open {
-      opacity: 1;
-      pointer-events: all;
-    }
-    .modal {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-top: 3px solid var(--red);
-      max-width: 680px;
-      width: 100%;
-      max-height: 90vh;
-      overflow-y: auto;
-      transform: translateY(30px);
-      transition: transform .3s;
-    }
-    .modal-overlay.open .modal { transform: translateY(0); }
-    .modal-header {
-      padding: 28px 32px 20px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-    .modal-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.8rem;
-      letter-spacing: 0.06em;
-    }
-    .modal-close {
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--gray);
-      width: 32px;
-      height: 32px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: all .2s;
-      flex-shrink: 0;
-    }
-    .modal-close:hover { border-color: var(--red); color: var(--red); }
-    .modal-body { padding: 28px 32px; }
-    .modal-section { margin-bottom: 28px; }
-    .modal-section:last-child { margin-bottom: 0; }
-    .modal-section-label {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .modal-section-label::before {
-      content: '';
-      width: 16px;
-      height: 2px;
-      background: var(--red);
-    }
-    .modal-section p {
-      font-size: 0.88rem;
-      color: var(--light-gray);
-      line-height: 1.8;
-    }
-    .modal-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .modal-list li {
-      font-size: 0.85rem;
-      color: var(--light-gray);
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-    }
-    .modal-list li::before {
-      content: '—';
-      color: var(--red);
-      flex-shrink: 0;
-    }
-    .modal-tech-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .modal-tech-tag {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      background: rgba(224,16,16,0.1);
-      border: 1px solid var(--red);
-      color: var(--red);
-      padding: 4px 14px;
-    }
-
-    /* ─── HERO ─── */
-    .hero {
-      position: relative;
-      height: 580px;
-      display: flex;
-      align-items: flex-end;
-      overflow: hidden;
-      background: #0a0a0a;
-    }
-
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(120deg, rgba(224,16,16,0.18) 0%, transparent 55%),
-        linear-gradient(to bottom, transparent 30%, rgba(10,10,10,0.95) 100%),
-        url('https://images.unsplash.com/photo-1558981001-1995369a39cd?w=1400&q=80') center/cover no-repeat;
-      animation: heroZoom 12s ease-in-out infinite alternate;
-    }
-
-    @keyframes heroZoom {
-      from { transform: scale(1); }
-      to   { transform: scale(1.04); }
-    }
-
-    /* diagonal red slash */
-    .hero::after {
-      content: '';
-      position: absolute;
-      top: 0; right: 0;
-      width: 6px;
-      height: 100%;
-      background: var(--red);
-      transform: skewX(-4deg);
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      padding: 0 60px 60px;
-      max-width: 700px;
-    }
-
-    .hero-label {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .hero-label::before {
-      content: '';
-      width: 30px;
-      height: 2px;
-      background: var(--red);
-    }
-
-    .hero h1 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3rem, 7vw, 5.5rem);
-      line-height: 0.95;
-      letter-spacing: 0.04em;
-      margin-bottom: 20px;
-    }
-
-    .hero h1 em {
-      color: var(--red);
-      font-style: normal;
-    }
-
-    .hero p {
-      font-size: 0.95rem;
-      color: var(--light-gray);
-      line-height: 1.7;
-      max-width: 480px;
-      margin-bottom: 32px;
-    }
-
-    .btn-group { display: flex; gap: 16px; flex-wrap: wrap; }
-
-    .btn {
-      font-family: 'Rajdhani', sans-serif;
-      font-weight: 700;
-      font-size: 0.85rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 12px 28px;
-      text-decoration: none;
-      transition: all .25s;
-      display: inline-block;
-    }
-    .btn-primary {
-      background: var(--red);
-      color: #fff;
-      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
-    }
-    .btn-primary:hover { background: #ff2020; }
-    .btn-outline {
-      border: 1px solid var(--border);
-      color: var(--light-gray);
-      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
-    }
-    .btn-outline:hover { border-color: var(--red); color: var(--red); }
-
-    /* ─── TICKER ─── */
-    .ticker-wrap {
-      background: var(--red);
-      overflow: hidden;
-      white-space: nowrap;
-      padding: 8px 0;
-    }
-    .ticker {
-      display: inline-block;
-      animation: ticker 30s linear infinite;
-    }
-    .ticker span {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #fff;
-      padding: 0 40px;
-    }
-    @keyframes ticker {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    /* ─── SECTION COMMON ─── */
-    section { padding: 80px 40px; }
-
-    .section-header {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      margin-bottom: 48px;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 20px;
-    }
-
-    .section-label {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 6px;
-    }
-
-    .section-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      letter-spacing: 0.06em;
-    }
-
-    /* ─── NEW ARRIVALS ─── */
-    .new-arrivals { background: var(--dark); }
-
-    .arrivals-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 2px;
-    }
-
-    .arrival-card {
-      position: relative;
-      background: var(--panel);
-      overflow: hidden;
-      aspect-ratio: 4/3;
-      cursor: pointer;
-    }
-
-    .arrival-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform .5s ease, filter .5s;
-      filter: grayscale(30%);
-    }
-
-    .arrival-card:hover img {
-      transform: scale(1.08);
-      filter: grayscale(0%);
-    }
-
-    .arrival-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, transparent 55%);
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 20px;
-      transition: background .3s;
-    }
-
-    .arrival-card:hover .arrival-overlay {
-      background: linear-gradient(to top, rgba(180,8,8,0.7) 0%, transparent 70%);
-    }
-
-    .arrival-badge {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: var(--red);
-      background: rgba(224,16,16,0.15);
-      border: 1px solid var(--red);
-      display: inline-block;
-      padding: 2px 8px;
-      margin-bottom: 8px;
-      width: fit-content;
-    }
-
-    .arrival-name {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      line-height: 1.3;
-    }
-
-    .arrival-sub {
-      font-size: 0.75rem;
-      color: var(--gray);
-      margin-top: 4px;
-    }
-
-    /* ─── BRANDS ─── */
-    .brands-section { background: var(--black); }
-
-    .brands-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 2px;
-    }
-
-    .brand-card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      padding: 32px 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 16px;
-      transition: border-color .3s, background .3s;
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .brand-card:hover {
-      border-color: var(--red);
-      background: #1a0808;
-    }
-
-    .brand-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.2rem;
-      color: var(--red);
-      transition: background .3s;
-    }
-    .brand-card:hover .brand-icon { background: var(--red); color: #fff; }
-
-    .brand-name {
-      font-family: 'Rajdhani', sans-serif;
-      font-weight: 700;
-      font-size: 0.9rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--light-gray);
-      text-align: center;
-    }
-
-    .brand-desc {
-      font-size: 0.72rem;
-      color: var(--gray);
-      text-align: center;
-      line-height: 1.5;
-    }
-
-    /* ─── PICKUP MODELS ─── */
-    .pickup-section { background: var(--dark); }
-
-    .pickup-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2px;
-    }
-
-    .pickup-card {
-      position: relative;
-      overflow: hidden;
-      background: var(--panel);
-      min-height: 340px;
-      display: flex;
-      align-items: flex-end;
-      cursor: pointer;
-    }
-
-    .pickup-card.featured { grid-column: span 2; min-height: 460px; }
-
-    .pickup-card img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform .6s ease;
-    }
-
-    .pickup-card:hover img { transform: scale(1.05); }
-
-    .pickup-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(60deg, rgba(10,10,10,0.88) 30%, transparent 100%);
-    }
-
-    .pickup-info {
-      position: relative;
-      z-index: 2;
-      padding: 36px;
-    }
-
-    .pickup-maker {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 8px;
-    }
-
-    .pickup-model {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(1.6rem, 3vw, 2.8rem);
-      letter-spacing: 0.04em;
-      line-height: 1;
-      margin-bottom: 12px;
-    }
-
-    .pickup-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .tag {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      border: 1px solid var(--border);
-      padding: 3px 10px;
-      color: var(--gray);
-    }
-
-    /* ─── SPECS / INFO BAR ─── */
-    .info-bar {
-      background: var(--panel);
-      border-top: 2px solid var(--red);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      gap: 0;
-      overflow-x: auto;
-    }
-
-    .info-item {
-      flex: 1;
-      min-width: 160px;
-      padding: 28px 32px;
-      border-right: 1px solid var(--border);
-    }
-
-    .info-item:last-child { border-right: none; }
-
-    .info-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2.6rem;
-      color: var(--red);
-      letter-spacing: 0.04em;
-      line-height: 1;
-    }
-
-    .info-label {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.72rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gray);
-      margin-top: 4px;
-    }
-
-    /* ─── VINTAGE ─── */
-    .vintage-section {
-      background: var(--black);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .vintage-section::before {
-      content: 'VINTAGE';
-      position: absolute;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 18vw;
-      color: rgba(255,255,255,0.02);
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      white-space: nowrap;
-      pointer-events: none;
-    }
-
-    .vintage-flex {
-      display: flex;
-      gap: 48px;
-      align-items: center;
-    }
-
-    .vintage-image {
-      flex: 1;
-      min-width: 300px;
-      aspect-ratio: 4/3;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .vintage-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: sepia(30%) contrast(1.1);
-      transition: transform .5s;
-    }
-
-    .vintage-image:hover img { transform: scale(1.04); }
-
-    /* red corner accent */
-    .vintage-image::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 60px; height: 4px;
-      background: var(--red);
-    }
-
-    .vintage-text { flex: 1; }
-
-    .vintage-text h3 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(1.8rem, 3vw, 2.6rem);
-      letter-spacing: 0.06em;
-      margin-bottom: 16px;
-    }
-
-    .vintage-text p {
-      font-size: 0.9rem;
-      line-height: 1.8;
-      color: var(--light-gray);
-      margin-bottom: 24px;
-    }
-
-    .inline-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 32px;
-    }
-
-    .inline-list li {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.85rem;
-      color: var(--light-gray);
-    }
-
-    .inline-list li::before {
-      content: '';
-      width: 20px;
-      height: 2px;
-      background: var(--red);
-      flex-shrink: 0;
-    }
-
-    /* ─── FOOTER ─── */
-    footer {
-      background: #070707;
-      border-top: 2px solid var(--red);
-      padding: 48px 40px 32px;
-    }
-
-    .footer-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 40px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-    }
-
-    .footer-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2rem;
-      letter-spacing: 0.15em;
-      color: var(--white);
-      text-decoration: none;
-    }
-    .footer-logo span { color: var(--red); }
-
-    .footer-tagline {
-      font-size: 0.78rem;
-      color: var(--gray);
-      margin-top: 8px;
-      letter-spacing: 0.05em;
-    }
-
-    .footer-links h4 {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 16px;
-    }
-
-    .footer-links ul { list-style: none; }
-    .footer-links li {
-      margin-bottom: 10px;
-    }
-    .footer-links a {
-      font-size: 0.82rem;
-      color: var(--gray);
-      text-decoration: none;
-      transition: color .2s;
-    }
-    .footer-links a:hover { color: var(--red); }
-
-    .footer-bottom {
-      border-top: 1px solid var(--border);
-      padding-top: 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .footer-bottom p {
-      font-size: 0.72rem;
-      color: var(--gray);
-    }
-
-    .footer-credit {
-      font-size: 0.72rem;
-      color: var(--gray);
-      text-align: right;
-    }
-    .footer-credit strong { color: var(--red); }
-
-    /* ─── PORTFOLIO NOTE ─── */
-    .portfolio-note {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: var(--red);
-      color: #fff;
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      padding: 10px 18px;
-      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
-      z-index: 999;
-      box-shadow: 0 4px 24px rgba(224,16,16,0.4);
-    }
-
-    /* ─── SCROLL ANIMATION ─── */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity .7s ease, transform .7s ease;
-    }
-    .fade-in.visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    /* ─── HAMBURGER ─── */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 4px;
-      background: none;
-      border: none;
-      z-index: 200;
-    }
-    .hamburger span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: var(--white);
-      transition: all .3s ease;
-    }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    .mobile-nav {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(10,10,10,0.98);
-      z-index: 150;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 32px;
-    }
-    .mobile-nav.open { display: flex; }
-    .mobile-nav a {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2.5rem;
-      letter-spacing: 0.1em;
-      color: var(--white);
-      text-decoration: none;
-      transition: color .2s;
-    }
-    .mobile-nav a:hover { color: var(--red); }
-
-    /* ─── WORKS FILTER ─── */
-    .filter-bar {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 32px;
-    }
-    .filter-btn {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      border: 1px solid var(--border);
-      padding: 8px 20px;
-      color: var(--gray);
-      background: none;
-      cursor: pointer;
-      transition: all .2s;
-    }
-    .filter-btn:hover,
-    .filter-btn.active {
-      border-color: var(--red);
-      color: var(--red);
-      background: rgba(224,16,16,0.08);
-    }
-    .work-card { transition: opacity .4s, transform .4s, border-color .3s; }
-    .work-card.hidden { opacity: 0; pointer-events: none; transform: scale(0.96); }
-
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 768px) {
-      header { padding: 0 20px; }
-      nav { display: none; }
-      .hamburger { display: flex; }
-      section { padding: 60px 20px; }
-      .hero-content { padding: 0 24px 40px; }
-      .pickup-grid { grid-template-columns: 1fr; }
-      .pickup-card.featured { grid-column: span 1; }
-      .vintage-flex { flex-direction: column; }
-      .about-flex { flex-direction: column; gap: 40px; }
-      .info-bar { flex-wrap: wrap; }
-      .footer-top { flex-direction: column; }
-      .works-grid { grid-template-columns: 1fr; }
-      .skills-grid { grid-template-columns: 1fr 1fr; }
-    }
-
-    @media (max-width: 480px) {
-      .skills-grid { grid-template-columns: 1fr; }
-      .hero h1 { font-size: 2.6rem; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MotoGear JP — バイクパーツ専門店</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────
+   COLOR SYSTEM — 役割ごとに色を分離
+   --brand     : ブランドアイデンティティ（赤）= ロゴ・仕切り線・ブランド強調
+   --action    : 操作・CTA（白）= 主要ボタン背景
+   --new       : 新着ステータス（緑系）= 入荷バッジのみ
+   --limited   : 限定・注意（アンバー）= 在庫・限定情報のみ
+   --text-*    : テキスト階層
+   --surface-* : 背景階層
+───────────────────────────────────────── */
+:root {
+  --brand:       #c0160e;
+  --brand-dim:   #7a0e09;
+  --brand-glow:  rgba(192,22,14,0.12);
+
+  --action:      #f0ece6;
+  --action-text: #0d0b09;
+
+  --new:         #1a7a3c;
+  --new-bg:      rgba(26,122,60,0.12);
+  --new-text:    #4cc17a;
+
+  --limited:     #b06000;
+  --limited-bg:  rgba(176,96,0,0.12);
+  --limited-text:#e89840;
+
+  --text-primary:   #f0ece6;
+  --text-secondary: #9a9490;
+  --text-tertiary:  #5c5a58;
+
+  --surface-0: #0b0a09;
+  --surface-1: #111009;
+  --surface-2: #1a1815;
+  --surface-3: #242220;
+
+  --border:     rgba(240,236,230,0.08);
+  --border-mid: rgba(240,236,230,0.14);
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--surface-0);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; }
+
+/* ─── UTILS ─── */
+.mono {
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.04em;
+}
+
+.label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+}
+.badge-new     { background: var(--new-bg);     color: var(--new-text);     }
+.badge-limited { background: var(--limited-bg); color: var(--limited-text); }
+.badge-new::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--new-text); flex-shrink: 0; }
+
+/* ─── HEADER ─── */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: rgba(11,10,9,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  height: 56px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 0 32px;
+}
+
+.logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--text-primary);
+}
+.logo em {
+  font-style: normal;
+  color: var(--brand);
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+nav a {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  padding: 0 18px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid transparent;
+  transition: color 0.18s, border-color 0.18s;
+}
+nav a:hover { color: var(--text-primary); border-bottom-color: var(--text-tertiary); }
+nav a.active { color: var(--text-primary); border-bottom-color: var(--brand); }
+
+.header-right {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  align-items: center;
+}
+
+/* ─── HERO — 主役: ブランド訴求 + カテゴリ入口 ─── */
+.hero {
+  position: relative;
+  height: 620px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+}
+
+/* 左: テキストゾーン — 主役 */
+.hero-left {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 56px 60px;
+  background: linear-gradient(105deg, var(--surface-0) 0%, rgba(11,10,9,0.97) 70%, transparent 100%);
+}
+
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.hero-eyebrow-line {
+  width: 28px;
+  height: 1px;
+  background: var(--brand);
+}
+.hero-eyebrow-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
+
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(40px, 5.5vw, 68px);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--text-secondary);
+  font-weight: 700;
+}
+
+.hero-desc {
+  font-size: 13px;
+  line-height: 1.85;
+  color: var(--text-secondary);
+  max-width: 360px;
+  margin-bottom: 36px;
+}
+
+/* CTA — アクション色は白（ブランド赤と分離） */
+.btn-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--action);
+  color: var(--action-text);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 14px 24px;
+  border: none;
+  border-radius: var(--radius-sm);
+  transition: background 0.18s;
+  align-self: flex-start;
+}
+.btn-cta:hover { background: #fff; }
+.btn-cta svg { flex-shrink: 0; }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  color: var(--text-secondary);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 13px 20px;
+  border: 1px solid var(--border-mid);
+  border-radius: var(--radius-sm);
+  transition: color 0.18s, border-color 0.18s;
+}
+.btn-ghost:hover { color: var(--text-primary); border-color: var(--text-tertiary); }
+
+.hero-actions { display: flex; gap: 10px; align-items: center; }
+
+/* 右: ビジュアルゾーン */
+.hero-right {
+  position: relative;
+  overflow: hidden;
+}
+.hero-right img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: contrast(1.05) saturate(0.85);
+  animation: heroZoom 14s ease-in-out infinite alternate;
+}
+@keyframes heroZoom {
+  from { transform: scale(1); }
+  to   { transform: scale(1.04); }
+}
+.hero-right::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, var(--surface-0) 0%, transparent 30%),
+              linear-gradient(to top, rgba(11,10,9,0.5) 0%, transparent 50%);
+  z-index: 1;
+}
+
+/* ─── 速報バー — 新着専用（緑で状態を明示） ─── */
+.status-bar {
+  background: var(--surface-1);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+}
+.status-bar-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 24px;
+  border-right: 1px solid var(--border);
+  flex-shrink: 0;
+  background: var(--surface-2);
+}
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--new-text);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
+}
+.status-bar-label span {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--new-text);
+}
+
+.status-scroll {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+}
+.status-items {
+  display: flex;
+  gap: 40px;
+  white-space: nowrap;
+  animation: scrollLeft 28s linear infinite;
+}
+@keyframes scrollLeft {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+.status-item-name { color: var(--text-primary); font-weight: 500; }
+.status-item-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text-tertiary);
+}
+
+/* ─── SECTION LAYOUT ─── */
+.section {
+  padding: 80px 32px;
+}
+.section-sm { padding: 56px 32px; }
+
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+.section-head-left {}
+.section-label-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 8px;
+}
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+.link-all {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.18s;
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--text-tertiary);
+}
+.link-all:hover { color: var(--text-secondary); border-bottom-color: var(--text-secondary); }
+
+/* ─── NEW ARRIVALS ─── */
+.arrivals-bg { background: var(--surface-0); }
+
+.arrivals-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 240px 240px;
+  gap: 2px;
+}
+
+.arrival-item {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-2);
+  cursor: pointer;
+}
+.arrival-item.main { grid-row: span 2; }
+
+.arrival-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.8) contrast(1.05);
+  transition: transform 0.6s ease, filter 0.4s;
+}
+.arrival-item:hover img {
+  transform: scale(1.04);
+  filter: saturate(1) contrast(1.05);
+}
+
+.arrival-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(11,10,9,0.88) 0%, rgba(11,10,9,0.1) 50%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+  gap: 6px;
+}
+.arrival-item.main .arrival-overlay { padding: 32px; }
+
+.arrival-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.arrival-name {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+.arrival-item.main .arrival-name { font-size: 17px; max-width: 400px; }
+
+.arrival-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text-tertiary);
+  letter-spacing: 0.06em;
+}
+
+/* ─── BRANDS ─── */
+.brands-bg { background: var(--surface-1); }
+
+.brands-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.brand-cell {
+  background: var(--surface-1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 28px 16px;
+  transition: background 0.18s;
+  cursor: pointer;
+}
+.brand-cell:hover { background: var(--surface-2); }
+
+.brand-abbr {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-secondary);
+  transition: color 0.18s;
+  line-height: 1;
+}
+.brand-cell:hover .brand-abbr { color: var(--text-primary); }
+
+.brand-full-name {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* ─── PICKUP — 比較フェーズ ─── */
+.pickup-bg { background: var(--surface-0); }
+
+.pickup-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.pickup-card {
+  background: var(--surface-2);
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  cursor: pointer;
+}
+.pickup-card.featured { aspect-ratio: 3/2; grid-column: span 3; }
+
+.pickup-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.75);
+  transition: transform 0.55s ease, filter 0.4s;
+}
+.pickup-card:hover img {
+  transform: scale(1.03);
+  filter: saturate(1);
+}
+
+.pickup-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(11,10,9,0.92) 0%, transparent 55%);
+}
+
+.pickup-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.pickup-card.featured .pickup-info { padding: 36px; }
+
+.pickup-make {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.pickup-model-name {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(20px, 2.5vw, 32px);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+.pickup-card.featured .pickup-model-name { font-size: clamp(28px, 4vw, 52px); }
+
+.pickup-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 4px;
+}
+.pickup-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border: 1px solid var(--border-mid);
+  color: var(--text-tertiary);
+  border-radius: var(--radius-sm);
+}
+
+/* ─── VINTAGE SECTION ─── */
+.vintage-bg { background: var(--surface-1); }
+
+.vintage-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.vintage-img-wrap {
+  position: relative;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: var(--surface-2);
+}
+.vintage-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: sepia(40%) contrast(1.1) saturate(0.7);
+  transition: transform 0.5s;
+}
+.vintage-img-wrap:hover img { transform: scale(1.03); }
+
+/* ブランド色: 左下のアクセントライン */
+.vintage-img-wrap::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 48px; height: 3px;
+  background: var(--brand);
+}
+
+.vintage-content {}
+.vintage-content h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(22px, 2.5vw, 32px);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+.vintage-content p {
+  font-size: 13px;
+  line-height: 1.85;
+  color: var(--text-secondary);
+  margin-bottom: 28px;
+}
+.vintage-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+.vintage-list li {
+  font-size: 13px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.vintage-list li::before {
+  content: '';
+  width: 16px;
+  height: 1px;
+  background: var(--brand);
+  flex-shrink: 0;
+}
+
+/* ─── STATS BAR ─── */
+.stats-bar {
+  background: var(--surface-2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.stat-cell {
+  padding: 28px 32px;
+  border-right: 1px solid var(--border);
+}
+.stat-cell:last-child { border-right: none; }
+.stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1;
+  margin-bottom: 4px;
+  letter-spacing: -0.02em;
+}
+.stat-num sup {
+  font-size: 18px;
+  vertical-align: super;
+  letter-spacing: 0;
+}
+.stat-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+/* ─── ABOUT + SKILLS ─── */
+.about-bg { background: var(--surface-0); }
+
+.about-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.about-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 48px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.about-role {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 24px;
+}
+.about-bio {
+  font-size: 13px;
+  line-height: 1.85;
+  color: var(--text-secondary);
+}
+
+.skills-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.skill-row {
+  display: grid;
+  grid-template-columns: 40px 100px 1fr 40px;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-1);
+  transition: background 0.18s;
+}
+.skill-row:last-child { border-bottom: none; }
+.skill-row:hover { background: var(--surface-2); }
+
+.skill-abbr {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text-secondary);
+  text-align: center;
+}
+.skill-name-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--text-primary);
+}
+.skill-bar-track {
+  height: 2px;
+  background: var(--surface-3);
+  border-radius: 1px;
+  overflow: hidden;
+}
+.skill-bar-fill {
+  height: 100%;
+  background: var(--text-tertiary);
+  border-radius: 1px;
+  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.skill-pct {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text-tertiary);
+  text-align: right;
+}
+
+/* ─── WORKS ─── */
+.works-bg { background: var(--surface-1); }
+
+.works-filter {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 28px;
+}
+.works-filter-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  background: none;
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  transition: color 0.18s, border-color 0.18s, background 0.18s;
+}
+.works-filter-btn:hover { color: var(--text-secondary); border-color: var(--border-mid); }
+.works-filter-btn.active {
+  color: var(--text-primary);
+  border-color: var(--text-secondary);
+  background: var(--surface-2);
+}
+
+.works-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.work-card {
+  background: var(--surface-2);
+  display: flex;
+  flex-direction: column;
+  transition: opacity 0.35s, transform 0.35s;
+}
+.work-card.hidden { opacity: 0; pointer-events: none; transform: scale(0.97); }
+
+.work-thumb {
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  background: var(--surface-3);
+}
+.work-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.7);
+  transition: transform 0.5s ease, filter 0.35s;
+}
+.work-card:hover .work-thumb img {
+  transform: scale(1.04);
+  filter: saturate(1);
+}
+
+.work-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.work-category-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+.work-title-text {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+.work-desc-text {
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  flex: 1;
+}
+.work-tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+.work-tech-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  border: 1px solid var(--border);
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
+}
+
+.work-action {
+  padding: 14px 20px;
+  border-top: 1px solid var(--border);
+}
+.btn-work-detail {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.18s;
+}
+.btn-work-detail:hover { color: var(--text-primary); }
+
+/* ─── MODAL ─── */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5,4,3,0.88);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+  backdrop-filter: blur(4px);
+}
+.modal-backdrop.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-box {
+  background: var(--surface-2);
+  border: 1px solid var(--border-mid);
+  border-top: 2px solid var(--brand);
+  width: 100%;
+  max-width: 600px;
+  max-height: 88vh;
+  overflow-y: auto;
+  transform: translateY(16px);
+  transition: transform 0.25s;
+  border-radius: var(--radius-md);
+}
+.modal-backdrop.open .modal-box { transform: translateY(0); }
+
+.modal-head {
+  padding: 24px 28px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background: var(--surface-2);
+  z-index: 2;
+}
+.modal-head-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+.modal-close-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-tertiary);
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.18s, border-color 0.18s;
+}
+.modal-close-btn:hover { color: var(--text-primary); border-color: var(--text-tertiary); }
+
+.modal-content { padding: 24px 28px; }
+.modal-section { margin-bottom: 24px; }
+.modal-section:last-child { margin-bottom: 0; }
+
+.modal-section-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-section p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.modal-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.modal-list li {
+  font-size: 13px;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.6;
+}
+.modal-list li::before {
+  content: '—';
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+  font-family: 'DM Mono', monospace;
+}
+
+.modal-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.modal-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid var(--border-mid);
+  padding: 4px 12px;
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--surface-1);
+  border-top: 1px solid var(--border);
+  padding: 48px 32px 32px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 48px;
+}
+
+.footer-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  margin-bottom: 10px;
+  display: block;
+}
+.footer-logo em {
+  font-style: normal;
+  color: var(--brand);
+}
+.footer-tagline {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  line-height: 1.6;
+}
+
+.footer-col h4 {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 16px;
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-col a {
+  font-size: 13px;
+  color: var(--text-secondary);
+  transition: color 0.18s;
+}
+.footer-col a:hover { color: var(--text-primary); }
+
+.footer-bottom {
+  border-top: 1px solid var(--border);
+  padding-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.footer-copy {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+}
+.footer-credit {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--text-tertiary);
+}
+.footer-credit strong { color: var(--brand); }
+
+/* ─── PORTFOLIO BADGE ─── */
+.portfolio-badge {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--surface-2);
+  border: 1px solid var(--border-mid);
+  border-left: 2px solid var(--brand);
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  padding: 8px 14px;
+  z-index: 999;
+  border-radius: var(--radius-sm);
+}
+
+/* ─── HAMBURGER ─── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+}
+.hamburger span {
+  width: 22px;
+  height: 1.5px;
+  background: var(--text-secondary);
+  display: block;
+  transition: all 0.28s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+.mobile-nav {
+  display: none;
+  position: fixed;
+  inset: 0;
+  top: 56px;
+  background: rgba(11,10,9,0.98);
+  z-index: 150;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px 32px;
+  gap: 8px;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav a {
+  font-family: 'Syne', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text-secondary);
+  letter-spacing: -0.01em;
+  transition: color 0.18s;
+  padding: 8px 0;
+}
+.mobile-nav a:hover { color: var(--text-primary); }
+
+/* ─── SCROLL REVEAL ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .brands-grid { grid-template-columns: repeat(4, 1fr); }
+  .pickup-grid { grid-template-columns: 1fr 1fr; }
+  .pickup-card.featured { grid-column: span 2; }
+}
+
+@media (max-width: 768px) {
+  header { padding: 0 20px; grid-template-columns: 1fr auto; }
+  header nav, .header-right { display: none; }
+  .hamburger { display: flex; }
+
+  .hero { grid-template-columns: 1fr; height: auto; }
+  .hero-left { padding: 48px 20px 40px; background: var(--surface-0); }
+  .hero-right { height: 240px; }
+  .hero-right::before { background: linear-gradient(to top, var(--surface-0) 0%, transparent 40%); }
+
+  .section { padding: 56px 20px; }
+
+  .arrivals-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+  .arrival-item.main { grid-column: span 2; aspect-ratio: 16/9; }
+
+  .brands-grid { grid-template-columns: repeat(4, 1fr); }
+
+  .pickup-grid { grid-template-columns: 1fr; }
+  .pickup-card.featured { grid-column: span 1; aspect-ratio: 16/9; }
+  .pickup-card { aspect-ratio: 4/3; }
+
+  .vintage-layout { grid-template-columns: 1fr; gap: 36px; }
+
+  .stats-bar { grid-template-columns: 1fr 1fr; }
+  .stat-cell:nth-child(2) { border-right: none; }
+
+  .about-layout { grid-template-columns: 1fr; gap: 40px; }
+  .works-grid { grid-template-columns: 1fr; }
+
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .footer-grid > :first-child { grid-column: span 2; }
+}
+
+@media (max-width: 480px) {
+  .arrivals-grid { grid-template-columns: 1fr; }
+  .arrival-item.main { grid-column: span 1; }
+  .brands-grid { grid-template-columns: repeat(2, 1fr); }
+  .pickup-card { aspect-ratio: 16/10; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-grid > :first-child { grid-column: span 1; }
+  .hero h1 { font-size: 36px; }
+  .stat-cell { padding: 20px; }
+  .stat-num { font-size: 28px; }
+}
+</style>
 </head>
 <body>
 
-<!-- PORTFOLIO BADGE -->
-<div class="portfolio-note">★ Portfolio Work</div>
+<!-- Portfolio Badge -->
+<div class="portfolio-badge">★ Portfolio Work</div>
 
-<!-- MOBILE NAV -->
-<nav class="mobile-nav" id="mobileNav" role="navigation" aria-label="モバイルナビゲーション">
-  <a href="#new" onclick="closeMobileNav()">New Arrivals</a>
-  <a href="#brands" onclick="closeMobileNav()">Brands</a>
-  <a href="#pickup" onclick="closeMobileNav()">Pick Up</a>
+<!-- Mobile Nav -->
+<nav class="mobile-nav" id="mobileNav" aria-label="モバイルナビゲーション">
+  <a href="#new"     onclick="closeMobileNav()">New Arrivals</a>
+  <a href="#brands"  onclick="closeMobileNav()">Brands</a>
+  <a href="#pickup"  onclick="closeMobileNav()">Pick Up</a>
   <a href="#vintage" onclick="closeMobileNav()">Vintage</a>
-  <a href="#about" onclick="closeMobileNav()">About</a>
-  <a href="#works" onclick="closeMobileNav()">Works</a>
+  <a href="#about"   onclick="closeMobileNav()">About</a>
+  <a href="#works"   onclick="closeMobileNav()">Works</a>
 </nav>
 
-<!-- HEADER -->
-<header role="banner">
-  <a href="#" class="logo" aria-label="MOTOGEAR JP トップへ">MOTO<span>GEAR</span> JP</a>
-  <nav role="navigation" aria-label="メインナビゲーション">
-    <a href="#new">New Arrivals</a>
+<!-- Header -->
+<header>
+  <a href="#" class="logo">Moto<em>Gear</em> JP</a>
+
+  <nav aria-label="メインナビゲーション">
+    <a href="#new">New</a>
     <a href="#brands">Brands</a>
     <a href="#pickup">Pick Up</a>
     <a href="#vintage">Vintage</a>
     <a href="#about">About</a>
     <a href="#works">Works</a>
   </nav>
-  <button class="hamburger" id="hamburger" aria-label="メニューを開く" aria-expanded="false" aria-controls="mobileNav">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
+
+  <div class="header-right">
+    <button class="hamburger" id="hamburger" aria-label="メニュー" aria-expanded="false" aria-controls="mobileNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </header>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-content">
-    <div class="hero-label">企業・ブランド向け Web Design Portfolio</div>
-    <h1>RACE-PROVEN<br><em>MOTORCYCLE</em><br>PARTS</h1>
-    <p>このサイトはバイクパーツ専門ECサイトのUI/UXデザインサンプルです。HTML・CSS・JavaScriptによるフルコーディング実装。画像・テキストはすべてクライアント要件に合わせて差し替え可能です。</p>
-    <div class="btn-group">
-      <a href="#works" class="btn btn-primary">ポートフォリオ詳細を見る</a>
-      <a href="#about" class="btn btn-outline">About Me</a>
+<!-- ── HERO ── -->
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-line" aria-hidden="true"></span>
+      <span class="hero-eyebrow-text">欧州トップブランド正規輸入</span>
     </div>
+    <h1 id="hero-heading">
+      RACE-PROVEN<br>
+      <em>MOTORCYCLE</em><br>
+      PARTS
+    </h1>
+    <p class="hero-desc">サーキットからストリートまで。R&amp;G、Barkbusters、MOTOGRAFIXほか厳選8ブランドのパーツを国内最速でお届けします。</p>
+    <div class="hero-actions">
+      <a href="#new" class="btn-cta">
+        新着を見る
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true">
+          <path d="M8.5 1L13 5M13 5L8.5 9M13 5H1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </a>
+      <a href="#brands" class="btn-ghost">ブランド一覧</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1558981001-1995369a39cd?w=1200&q=80" alt="レーシングモーターサイクル">
   </div>
 </section>
 
-<!-- TICKER -->
-<div class="ticker-wrap" aria-label="コーディング再現ブランド例（ダミーデータ）">
-  <div class="ticker">
-    <span>★ コーディングサンプル</span>
-    <span>•</span>
-    <span>R&amp;G Racing Products</span>
-    <span>•</span>
-    <span>Barkbusters</span>
-    <span>•</span>
-    <span>MOTOGRAFIX</span>
-    <span>•</span>
-    <span>DENALI</span>
-    <span>•</span>
-    <span>ATHENA</span>
-    <span>•</span>
-    <span>Eazi-Grip™</span>
-    <span>•</span>
-    <span>KAOKO</span>
-    <span>•</span>
-    <span>PYRAMID</span>
-    <span>•</span>
-    <span>★ コーディングサンプル</span>
-    <span>•</span>
-    <span>R&amp;G Racing Products</span>
-    <span>•</span>
-    <span>Barkbusters</span>
-    <span>•</span>
-    <span>MOTOGRAFIX</span>
-    <span>•</span>
-    <span>DENALI</span>
-    <span>•</span>
-    <span>ATHENA</span>
-    <span>•</span>
-    <span>Eazi-Grip™</span>
-    <span>•</span>
-    <span>KAOKO</span>
-    <span>•</span>
-    <span>PYRAMID</span>
-    <span>•</span>
+<!-- ── 速報バー（新着 = 緑のみ） ── -->
+<div class="status-bar" aria-label="新着情報">
+  <div class="status-bar-label">
+    <span class="status-dot" aria-hidden="true"></span>
+    <span>New Arrivals</span>
   </div>
-</div>
-
-<!-- INFO BAR -->
-<div class="info-bar">
-  <div class="info-item fade-in">
-    <div class="info-num">3<span style="font-size:1.2rem">+</span></div>
-    <div class="info-label">制作実績数</div>
-  </div>
-  <div class="info-item fade-in">
-    <div class="info-num">5</div>
-    <div class="info-label">使用ツール</div>
-  </div>
-  <div class="info-item fade-in">
-    <div class="info-num">100<span style="font-size:1.2rem">%</span></div>
-    <div class="info-label">レスポンシブ対応済み</div>
-  </div>
-  <div class="info-item fade-in">
-    <div class="info-num">随時</div>
-    <div class="info-label">ポートフォリオ更新中</div>
-  </div>
-</div>
-
-<!-- NEW ARRIVALS -->
-<section class="new-arrivals" id="new">
-  <div class="section-header fade-in">
-    <div>
-      <div class="section-label">Latest Updates</div>
-      <h2 class="section-title">New Arrivals</h2>
+  <div class="status-scroll">
+    <div class="status-items" aria-hidden="true">
+      <!-- 2セット繰り返してループ -->
+      <div class="status-item"><span class="badge badge-new">New</span> <span class="status-item-name">YAMAHA TRACER9 GT R&amp;G フェンダーレスキット</span> <span class="status-item-date">2026.03.06</span></div>
+      <div class="status-item"><span class="badge badge-new">New</span> <span class="status-item-name">SUZUKI DR-Z4S Barkbusters ハンドルガード</span> <span class="status-item-date">2026.02.26</span></div>
+      <div class="status-item"><span class="badge badge-new">New</span> <span class="status-item-name">YAMAHA TRACER9 GT+ MOTOGRAFIX TANK PAD</span> <span class="status-item-date">2026.02.19</span></div>
+      <div class="status-item"><span class="badge badge-new">New</span> <span class="status-item-name">SUZUKI GSX-8T R&amp;G PRO ラジエターガード</span> <span class="status-item-date">2026.02.05</span></div>
+      <div class="status-item"><span class="badge badge-new">New</span> <span class="status-item-name">YAMAHA YZ250F ATHENA ボアアップキット</span> <span class="status-item-date">2026.01.28</span></div>
+      <!-- ループ用複製 -->
+      <div class="status-item"><span class="badge badge-new">New</span> <span class="status-item-name">YAMAHA TRACER9 GT R&amp;G フェンダーレスキット</span> <span class="status-item-date">2026.03.06</span></div>
+      <div class="status-item"><span class="badge badge-new">New</span> <span class="status-item-name">SUZUKI DR-Z4S Barkbusters ハンドルガード</span> <span class="status-item-date">2026.02.26</span></div>
+      <div class="status-item"><span class="badge badge-new">New</span> <span class="status-item-name">YAMAHA TRACER9 GT+ MOTOGRAFIX TANK PAD</span> <span class="status-item-date">2026.02.19</span></div>
+      <div class="status-item"><span class="badge badge-new">New</span> <span class="status-item-name">SUZUKI GSX-8T R&amp;G PRO ラジエターガード</span> <span class="status-item-date">2026.02.05</span></div>
+      <div class="status-item"><span class="badge badge-new">New</span> <span class="status-item-name">YAMAHA YZ250F ATHENA ボアアップキット</span> <span class="status-item-date">2026.01.28</span></div>
     </div>
-    <a href="#" class="btn btn-outline" style="font-size:0.75rem;padding:10px 20px;">View All</a>
   </div>
-  <div class="arrivals-grid">
+</div>
 
-    <div class="arrival-card fade-in">
-      <img src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=600&q=80" alt="Fender Kit" loading="lazy">
+<!-- ── STATS ── -->
+<div class="stats-bar" role="list" aria-label="ショップ情報">
+  <div class="stat-cell reveal" role="listitem">
+    <div class="stat-num">800<sup>+</sup></div>
+    <div class="stat-label">取扱製品数</div>
+  </div>
+  <div class="stat-cell reveal" role="listitem">
+    <div class="stat-num">8</div>
+    <div class="stat-label">厳選ブランド</div>
+  </div>
+  <div class="stat-cell reveal" role="listitem">
+    <div class="stat-num">30<sup>+</sup></div>
+    <div class="stat-label">対応バイクメーカー</div>
+  </div>
+  <div class="stat-cell reveal" role="listitem">
+    <div class="stat-num">週次</div>
+    <div class="stat-label">新製品入荷</div>
+  </div>
+</div>
+
+<!-- ── NEW ARRIVALS ── -->
+<section class="section arrivals-bg" id="new" aria-labelledby="new-heading">
+  <div class="section-head reveal">
+    <div class="section-head-left">
+      <div class="section-label-tag">Latest</div>
+      <h2 class="section-title" id="new-heading">New Arrivals</h2>
+    </div>
+    <a href="#" class="link-all">
+      すべて見る
+      <svg width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true">
+        <path d="M7 1L11 4.5M11 4.5L7 8M11 4.5H1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+    </a>
+  </div>
+  <div class="arrivals-grid reveal">
+    <div class="arrival-item main">
+      <img src="https://images.unsplash.com/photo-1558981001-1995369a39cd?w=900&q=80" alt="R&G フェンダーレスキット" loading="lazy">
       <div class="arrival-overlay">
-        <div class="arrival-badge">New</div>
+        <div class="arrival-meta">
+          <span class="badge badge-new">New</span>
+          <span class="arrival-date">2026.03.06</span>
+        </div>
         <div class="arrival-name">YAMAHA TRACER9/GT(25-)<br>R&amp;G フェンダーレスキット</div>
-        <div class="arrival-sub">2026.03.06 発売</div>
       </div>
     </div>
 
-    <div class="arrival-card fade-in">
-      <img src="https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?w=600&q=80" alt="Handguard" loading="lazy">
+    <div class="arrival-item">
+      <img src="https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?w=600&q=80" alt="Barkbusters ハンドルガード" loading="lazy">
       <div class="arrival-overlay">
-        <div class="arrival-badge">New</div>
+        <div class="arrival-meta">
+          <span class="badge badge-new">New</span>
+          <span class="arrival-date">2026.02.26</span>
+        </div>
         <div class="arrival-name">SUZUKI DR-Z4S/SM(25-)<br>Barkbusters ハンドルガード</div>
-        <div class="arrival-sub">2026.02.26 発売</div>
       </div>
     </div>
 
-    <div class="arrival-card fade-in">
-      <img src="https://images.unsplash.com/photo-1603399587603-90c2f1e7b07b?w=600&q=80" alt="Tank Pad" loading="lazy">
+    <div class="arrival-item">
+      <img src="https://images.unsplash.com/photo-1603399587603-90c2f1e7b07b?w=600&q=80" alt="MOTOGRAFIX TANK PAD" loading="lazy">
       <div class="arrival-overlay">
-        <div class="arrival-badge">New</div>
+        <div class="arrival-meta">
+          <span class="badge badge-new">New</span>
+          <span class="arrival-date">2026.02.19</span>
+        </div>
         <div class="arrival-name">YAMAHA TRACER9 GT+(23/24)<br>MOTOGRAFIX TANK PAD</div>
-        <div class="arrival-sub">2026.02.19 発売</div>
       </div>
     </div>
 
-    <div class="arrival-card fade-in">
-      <img src="https://images.unsplash.com/photo-1449426468159-d96dbf08f19f?w=600&q=80" alt="Radiator Guard" loading="lazy">
+    <div class="arrival-item">
+      <img src="https://images.unsplash.com/photo-1449426468159-d96dbf08f19f?w=600&q=80" alt="R&G PRO ラジエターガード" loading="lazy">
       <div class="arrival-overlay">
-        <div class="arrival-badge">New</div>
-        <div class="arrival-name">SUZUKI GSX-8T/TT(25-)<br>R&amp;G PROラジエターガード</div>
-        <div class="arrival-sub">2026.02.05 発売</div>
+        <div class="arrival-meta">
+          <span class="badge badge-new">New</span>
+          <span class="arrival-date">2026.02.05</span>
+        </div>
+        <div class="arrival-name">SUZUKI GSX-8T/TT(25-)<br>R&amp;G PRO ラジエターガード</div>
       </div>
     </div>
 
-    <div class="arrival-card fade-in">
-      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Bore Up Kit" loading="lazy">
+    <div class="arrival-item">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="ATHENA ボアアップキット" loading="lazy">
       <div class="arrival-overlay">
-        <div class="arrival-badge">New</div>
+        <div class="arrival-meta">
+          <span class="badge badge-new">New</span>
+          <span class="arrival-date">2026.01.28</span>
+        </div>
         <div class="arrival-name">YAMAHA YZ250F<br>ATHENA ボアアップキット</div>
-        <div class="arrival-sub">2026.01.28 発売</div>
       </div>
     </div>
-
-    <div class="arrival-card fade-in">
-      <img src="https://images.unsplash.com/photo-1609630875171-b1321377ee65?w=600&q=80" alt="Crash Protector" loading="lazy">
-      <div class="arrival-overlay">
-        <div class="arrival-badge">New</div>
-        <div class="arrival-name">HONDA CB1000 HORNET/SP(25-)<br>Barkbusters ハンドルガード</div>
-        <div class="arrival-sub">2026.01.07 発売</div>
-      </div>
-    </div>
-
   </div>
 </section>
 
-<!-- BRANDS -->
-<section class="brands-section" id="brands">
-  <div class="section-header fade-in">
-    <div>
-      <div class="section-label">Coding Sample — ここまで再現可能です</div>
-      <h2 class="section-title">取扱ブランド</h2>
+<!-- ── BRANDS ── -->
+<section class="section brands-bg" id="brands" aria-labelledby="brands-heading">
+  <div class="section-head reveal">
+    <div class="section-head-left">
+      <div class="section-label-tag">Partners</div>
+      <h2 class="section-title" id="brands-heading">取扱ブランド</h2>
     </div>
   </div>
-  <div class="brands-grid">
-    <a href="#" class="brand-card fade-in">
-      <div class="brand-icon">R</div>
-      <div class="brand-name">R&amp;G Racing</div>
-      <div class="brand-desc">マン島TT・BSB・WSBで支持される英国レーシングブランド</div>
+  <div class="brands-grid reveal">
+    <a href="#" class="brand-cell">
+      <div class="brand-abbr">R&amp;G</div>
+      <div class="brand-full-name">Racing Products</div>
     </a>
-    <a href="#" class="brand-card fade-in">
-      <div class="brand-icon">B</div>
-      <div class="brand-name">Barkbusters</div>
-      <div class="brand-desc">オフロードライダーが信頼するハンドルガード専門ブランド</div>
+    <a href="#" class="brand-cell">
+      <div class="brand-abbr">BB</div>
+      <div class="brand-full-name">Barkbusters</div>
     </a>
-    <a href="#" class="brand-card fade-in">
-      <div class="brand-icon">M</div>
-      <div class="brand-name">MOTOGRAFIX</div>
-      <div class="brand-desc">高精度3Dゲルプロテクターのパイオニア</div>
+    <a href="#" class="brand-cell">
+      <div class="brand-abbr">MG</div>
+      <div class="brand-full-name">Motografix</div>
     </a>
-    <a href="#" class="brand-card fade-in">
-      <div class="brand-icon">D</div>
-      <div class="brand-name">DENALI</div>
-      <div class="brand-desc">高性能補助ライト・電装カスタムパーツ</div>
+    <a href="#" class="brand-cell">
+      <div class="brand-abbr">DN</div>
+      <div class="brand-full-name">Denali</div>
     </a>
-    <a href="#" class="brand-card fade-in">
-      <div class="brand-icon">A</div>
-      <div class="brand-name">ATHENA</div>
-      <div class="brand-desc">欧州モトクロスで定評のボアアップ・エンジンパーツ</div>
+    <a href="#" class="brand-cell">
+      <div class="brand-abbr">AT</div>
+      <div class="brand-full-name">Athena</div>
     </a>
-    <a href="#" class="brand-card fade-in">
-      <div class="brand-icon">E</div>
-      <div class="brand-name">Eazi-Grip™</div>
-      <div class="brand-desc">グリップ力を最大化するタンクパッドの世界標準</div>
+    <a href="#" class="brand-cell">
+      <div class="brand-abbr">EG</div>
+      <div class="brand-full-name">Eazi-Grip™</div>
     </a>
-    <a href="#" class="brand-card fade-in">
-      <div class="brand-icon">K</div>
-      <div class="brand-name">KAOKO</div>
-      <div class="brand-desc">スロットルスタビライザーのオリジナルブランド</div>
+    <a href="#" class="brand-cell">
+      <div class="brand-abbr">KO</div>
+      <div class="brand-full-name">Kaoko</div>
     </a>
-    <a href="#" class="brand-card fade-in">
-      <div class="brand-icon">P</div>
-      <div class="brand-name">PYRAMID</div>
-      <div class="brand-desc">英国製フェンダーエクステンダー・エアロパーツ</div>
+    <a href="#" class="brand-cell">
+      <div class="brand-abbr">PY</div>
+      <div class="brand-full-name">Pyramid</div>
     </a>
   </div>
 </section>
 
-<!-- PICKUP MODELS -->
-<section class="pickup-section" id="pickup">
-  <div class="section-header fade-in">
-    <div>
-      <div class="section-label">Recommended</div>
-      <h2 class="section-title">PICK UP MODEL</h2>
+<!-- ── PICK UP ── -->
+<section class="section pickup-bg" id="pickup" aria-labelledby="pickup-heading">
+  <div class="section-head reveal">
+    <div class="section-head-left">
+      <div class="section-label-tag">Recommended</div>
+      <h2 class="section-title" id="pickup-heading">Pick Up Model</h2>
     </div>
-    <a href="#" class="btn btn-outline" style="font-size:0.75rem;padding:10px 20px;">All Models</a>
+    <a href="#" class="link-all">
+      全モデル
+      <svg width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true">
+        <path d="M7 1L11 4.5M11 4.5L7 8M11 4.5H1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+    </a>
   </div>
-  <div class="pickup-grid">
-
-    <div class="pickup-card featured fade-in">
-      <img src="https://images.unsplash.com/photo-1558981033-0f0309284409?w=1200&q=80" alt="BMW S1000RR">
-      <div class="pickup-overlay"></div>
+  <div class="pickup-grid reveal">
+    <div class="pickup-card featured">
+      <img src="https://images.unsplash.com/photo-1558981033-0f0309284409?w=1400&q=80" alt="BMW S1000RR">
+      <div class="pickup-overlay" aria-hidden="true"></div>
       <div class="pickup-info">
-        <div class="pickup-maker">BMW</div>
-        <div class="pickup-model">S1000RR</div>
+        <div class="pickup-make">BMW</div>
+        <div class="pickup-model-name">S1000RR</div>
         <div class="pickup-tags">
-          <span class="tag">フェンダーレス</span>
-          <span class="tag">クラッシュプロテクター</span>
-          <span class="tag">MOTOGRAFIX</span>
-          <span class="tag">R&amp;G</span>
+          <span class="pickup-tag">フェンダーレス</span>
+          <span class="pickup-tag">クラッシュプロテクター</span>
+          <span class="pickup-tag">MOTOGRAFIX</span>
+          <span class="pickup-tag">R&amp;G</span>
         </div>
       </div>
     </div>
-
-    <div class="pickup-card fade-in">
-      <img src="https://images.unsplash.com/photo-1609630875171-b1321377ee65?w=800&q=80" alt="KAWASAKI">
-      <div class="pickup-overlay"></div>
+    <div class="pickup-card">
+      <img src="https://images.unsplash.com/photo-1609630875171-b1321377ee65?w=800&q=80" alt="KAWASAKI Z900RS">
+      <div class="pickup-overlay" aria-hidden="true"></div>
       <div class="pickup-info">
-        <div class="pickup-maker">KAWASAKI</div>
-        <div class="pickup-model">Z900RS</div>
+        <div class="pickup-make">KAWASAKI</div>
+        <div class="pickup-model-name">Z900RS</div>
         <div class="pickup-tags">
-          <span class="tag">ラジエターガード</span>
-          <span class="tag">フェンダーレス</span>
+          <span class="pickup-tag">ラジエターガード</span>
+          <span class="pickup-tag">フェンダーレス</span>
         </div>
       </div>
     </div>
-
-    <div class="pickup-card fade-in">
-      <img src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=800&q=80" alt="HONDA CBR">
-      <div class="pickup-overlay"></div>
+    <div class="pickup-card">
+      <img src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=800&q=80" alt="HONDA CBR1000RR-R">
+      <div class="pickup-overlay" aria-hidden="true"></div>
       <div class="pickup-info">
-        <div class="pickup-maker">HONDA</div>
-        <div class="pickup-model">CBR1000RR-R</div>
+        <div class="pickup-make">HONDA</div>
+        <div class="pickup-model-name">CBR1000RR-R</div>
         <div class="pickup-tags">
-          <span class="tag">エンジンカバー</span>
-          <span class="tag">Eazi-Grip</span>
+          <span class="pickup-tag">エンジンカバー</span>
+          <span class="pickup-tag">Eazi-Grip</span>
         </div>
       </div>
     </div>
-
+    <div class="pickup-card">
+      <img src="https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?w=800&q=80" alt="YAMAHA TRACER9 GT">
+      <div class="pickup-overlay" aria-hidden="true"></div>
+      <div class="pickup-info">
+        <div class="pickup-make">YAMAHA</div>
+        <div class="pickup-model-name">TRACER 9 GT</div>
+        <div class="pickup-tags">
+          <span class="pickup-tag">ハンドルガード</span>
+          <span class="pickup-tag">タンクパッド</span>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- VINTAGE -->
-<section class="vintage-section" id="vintage">
-  <div class="vintage-flex">
-    <div class="vintage-image fade-in">
-      <img src="https://images.unsplash.com/photo-1545235617-7a424c1a60cc?w=800&q=80" alt="Vintage Bikes">
+<!-- ── VINTAGE ── -->
+<section class="section vintage-bg" id="vintage" aria-labelledby="vintage-heading">
+  <div class="vintage-layout">
+    <div class="vintage-img-wrap reveal">
+      <img src="https://images.unsplash.com/photo-1545235617-7a424c1a60cc?w=800&q=80" alt="ヴィンテージバイク">
     </div>
-    <div class="vintage-text fade-in">
-      <div class="section-label">Heritage Line</div>
-      <h3>VINTAGE PARTS<br>LINEUP</h3>
-      <p>旧車の魅力を次の世代へ。入手困難なパーツも、欧州トップパーツメーカーのネットワークを通じて国内にお届けします。</p>
-      <ul class="inline-list">
+    <div class="vintage-content reveal">
+      <div class="section-label-tag" style="margin-bottom:12px;">Heritage Line</div>
+      <h2 class="section-title" id="vintage-heading">Vintage Parts<br>Lineup</h2>
+      <p style="margin-top:16px;">旧車の魅力を次世代へ。入手困難なパーツも、欧州トップパーツメーカーのネットワークを通じて国内にお届けします。</p>
+      <ul class="vintage-list">
         <li>SR400 / SR500 専用パーツ</li>
         <li>ATHENA 2ストロークシリンダーキット</li>
         <li>ヴィンテージガスケットセット</li>
         <li>クラシックラインナップ随時更新</li>
       </ul>
-      <a href="#" class="btn btn-primary">Vintage 一覧を見る</a>
+      <a href="#" class="btn-cta">
+        Vintage 一覧を見る
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden="true">
+          <path d="M8.5 1L13 5M13 5L8.5 9M13 5H1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- ABOUT -->
-<section class="about-section" id="about">
-  <div class="section-header fade-in">
-    <div>
-      <div class="section-label">Profile</div>
-      <h2 class="section-title">About Me</h2>
+<!-- ── ABOUT ── -->
+<section class="section about-bg" id="about" aria-labelledby="about-heading">
+  <div class="section-head reveal">
+    <div class="section-head-left">
+      <div class="section-label-tag">Profile</div>
+      <h2 class="section-title" id="about-heading">About</h2>
     </div>
   </div>
-  <div class="about-flex">
-    <div class="about-left fade-in">
-      <div class="about-name"><span>AINE</span></div>
-      <div class="about-title">Web Creator</div>
-      <p class="about-text">新技術で革新的なデザインを。ユーザーの心を動かすビジュアルと、直感的な操作性を両立したWebサイトを制作しています。PhotoshopやIllustratorによるビジュアルデザインから、HTML・CSSによる実装、Figmaを使ったプロトタイピングまで一貫して対応可能です。</p>
+  <div class="about-layout">
+    <div class="reveal">
+      <div class="about-name">AINE</div>
+      <div class="about-role">Web Creator</div>
+      <p class="about-bio">新技術で革新的なデザインを。ユーザーの心を動かすビジュアルと、直感的な操作性を両立したWebサイトを制作しています。PhotoshopやIllustratorによるビジュアルデザインから、HTML・CSSによる実装、Figmaを使ったプロトタイピングまで一貫して対応可能です。</p>
     </div>
-    <div class="about-right fade-in">
-      <div class="about-stat">
-        <div class="about-stat-icon">Ps</div>
-        <div class="about-stat-text">
-          <div class="about-stat-label">Adobe Photoshop</div>
-          画像編集・ビジュアルデザイン・バナー制作
-        </div>
+    <div class="skills-stack reveal" role="list" aria-label="スキル一覧">
+      <div class="skill-row" role="listitem">
+        <div class="skill-abbr">Ps</div>
+        <div class="skill-name-text">Photoshop</div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-w="88%"></div></div>
+        <div class="skill-pct mono">88%</div>
       </div>
-      <div class="about-stat">
-        <div class="about-stat-icon">Ai</div>
-        <div class="about-stat-text">
-          <div class="about-stat-label">Adobe Illustrator</div>
-          ロゴ・イラスト・印刷物デザイン
-        </div>
+      <div class="skill-row" role="listitem">
+        <div class="skill-abbr">Ai</div>
+        <div class="skill-name-text">Illustrator</div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-w="82%"></div></div>
+        <div class="skill-pct mono">82%</div>
       </div>
-      <div class="about-stat">
-        <div class="about-stat-icon">Fig</div>
-        <div class="about-stat-text">
-          <div class="about-stat-label">Figma</div>
-          UIデザイン・プロトタイピング・ワイヤーフレーム
-        </div>
+      <div class="skill-row" role="listitem">
+        <div class="skill-abbr">Fig</div>
+        <div class="skill-name-text">Figma</div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-w="78%"></div></div>
+        <div class="skill-pct mono">78%</div>
       </div>
-      <div class="about-stat">
-        <div class="about-stat-icon">&lt;/&gt;</div>
-        <div class="about-stat-text">
-          <div class="about-stat-label">HTML / CSS</div>
-          レスポンシブ対応・アニメーション実装
-        </div>
+      <div class="skill-row" role="listitem">
+        <div class="skill-abbr">&lt;/&gt;</div>
+        <div class="skill-name-text">HTML / CSS</div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-w="75%"></div></div>
+        <div class="skill-pct mono">75%</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SKILLS -->
-<section class="skills-section" id="skills">
-  <div class="section-header fade-in">
-    <div>
-      <div class="section-label">Expertise</div>
-      <h2 class="section-title">Skills</h2>
+<!-- ── WORKS ── -->
+<section class="section works-bg" id="works" aria-labelledby="works-heading">
+  <div class="section-head reveal">
+    <div class="section-head-left">
+      <div class="section-label-tag">Portfolio</div>
+      <h2 class="section-title" id="works-heading">Works</h2>
     </div>
   </div>
-  <div class="skills-grid">
-    <div class="skill-card fade-in">
-      <div class="skill-icon">Ps</div>
-      <div class="skill-name">Photoshop</div>
-      <div class="skill-desc">写真加工・バナー制作・ビジュアルデザイン全般</div>
-      <div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div>
-    </div>
-    <div class="skill-card fade-in">
-      <div class="skill-icon">Ai</div>
-      <div class="skill-name">Illustrator</div>
-      <div class="skill-desc">ロゴデザイン・アイコン・印刷物・ベクターグラフィック</div>
-      <div class="skill-bar-wrap"><div class="skill-bar" style="width:82%"></div></div>
-    </div>
-    <div class="skill-card fade-in">
-      <div class="skill-icon">Fig</div>
-      <div class="skill-name">Figma</div>
-      <div class="skill-desc">UIデザイン・プロトタイプ・コンポーネント設計</div>
-      <div class="skill-bar-wrap"><div class="skill-bar" style="width:78%"></div></div>
-    </div>
-    <div class="skill-card fade-in">
-      <div class="skill-icon">H</div>
-      <div class="skill-name">HTML / CSS</div>
-      <div class="skill-desc">セマンティックHTML・レスポンシブCSS・アニメーション</div>
-      <div class="skill-bar-wrap"><div class="skill-bar" style="width:75%"></div></div>
-    </div>
+  <div class="works-filter reveal" role="group" aria-label="カテゴリーフィルター">
+    <button class="works-filter-btn active" data-filter="all">All</button>
+    <button class="works-filter-btn" data-filter="web">Web Design</button>
+    <button class="works-filter-btn" data-filter="visual">Visual</button>
+    <button class="works-filter-btn" data-filter="corporate">Corporate</button>
   </div>
-</section>
-
-<!-- WORKS -->
-<section class="works-section" id="works">
-  <div class="section-header fade-in">
-    <div>
-      <div class="section-label">Portfolio</div>
-      <h2 class="section-title">Works</h2>
-    </div>
-  </div>
-  <div class="filter-bar" role="group" aria-label="カテゴリーフィルター">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="web">Web Design</button>
-    <button class="filter-btn" data-filter="visual">Visual</button>
-    <button class="filter-btn" data-filter="corporate">Corporate</button>
-  </div>
-  <div class="works-grid">
-    <div class="work-card fade-in" data-category="web">
+  <div class="works-grid reveal">
+    <article class="work-card" data-category="web">
       <div class="work-thumb">
-        <img src="https://images.unsplash.com/photo-1558981001-1995369a39cd?w=800&q=80" alt="MotoGear JP バイクパーツECサイトのデスクトップビュー" loading="lazy">
-        <div class="work-thumb-overlay" aria-hidden="true"></div>
+        <img src="https://images.unsplash.com/photo-1558981001-1995369a39cd?w=800&q=80" alt="MotoGear JP バイクパーツECサイト" loading="lazy">
       </div>
-      <div class="work-info">
-        <div class="work-category">Motorcycle Parts / EC Site</div>
-        <div class="work-title">MOTOGEAR JP</div>
-        <div class="work-desc">バイクパーツ輸入販売サイトのリニューアルデザイン。ダークテーマ・スクロールアニメーション・レスポンシブ対応。</div>
-        <div class="work-tags">
-          <span class="work-tag">HTML</span>
-          <span class="work-tag">CSS</span>
-          <span class="work-tag">JavaScript</span>
-          <span class="work-tag">Responsive</span>
+      <div class="work-body">
+        <div class="work-category-tag">Motorcycle Parts / EC Site</div>
+        <h3 class="work-title-text">MOTOGEAR JP</h3>
+        <p class="work-desc-text">バイクパーツ輸入販売サイトのリニューアルデザイン。ダークテーマ・スクロールアニメーション・レスポンシブ対応。</p>
+        <div class="work-tech-tags">
+          <span class="work-tech-tag">HTML</span>
+          <span class="work-tech-tag">CSS</span>
+          <span class="work-tech-tag">JavaScript</span>
+          <span class="work-tech-tag">Responsive</span>
         </div>
-        <button class="work-detail-btn" onclick="openModal('modal1')" aria-haspopup="dialog">制作プロセスを見る</button>
       </div>
-    </div>
-    <div class="work-card fade-in" data-category="corporate">
+      <div class="work-action">
+        <button class="btn-work-detail" onclick="openModal('m1')" aria-haspopup="dialog">
+          制作プロセスを見る
+          <svg width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true">
+            <path d="M7 1L11 4.5M11 4.5L7 8M11 4.5H1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </article>
+
+    <article class="work-card" data-category="corporate">
       <div class="work-thumb">
-        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80" alt="コーポレートサイトのデスクトップビュー" loading="lazy">
-        <div class="work-thumb-overlay" aria-hidden="true"></div>
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80" alt="コーポレートサイト" loading="lazy">
       </div>
-      <div class="work-info">
-        <div class="work-category">Corporate / Web Design</div>
-        <div class="work-title">CORPORATE SITE</div>
-        <div class="work-desc">企業サイトのUIデザイン。Figmaでプロトタイプ作成後、HTML・CSSで実装。</div>
-        <div class="work-tags">
-          <span class="work-tag">Figma</span>
-          <span class="work-tag">HTML</span>
-          <span class="work-tag">CSS</span>
+      <div class="work-body">
+        <div class="work-category-tag">Corporate / Web Design</div>
+        <h3 class="work-title-text">CORPORATE SITE</h3>
+        <p class="work-desc-text">企業サイトのUIデザイン。Figmaでプロトタイプ作成後、HTML・CSSで実装。</p>
+        <div class="work-tech-tags">
+          <span class="work-tech-tag">Figma</span>
+          <span class="work-tech-tag">HTML</span>
+          <span class="work-tech-tag">CSS</span>
         </div>
-        <button class="work-detail-btn" onclick="openModal('modal2')" aria-haspopup="dialog">制作プロセスを見る</button>
       </div>
-    </div>
-    <div class="work-card fade-in" data-category="visual">
+      <div class="work-action">
+        <button class="btn-work-detail" onclick="openModal('m2')" aria-haspopup="dialog">
+          制作プロセスを見る
+          <svg width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true">
+            <path d="M7 1L11 4.5M11 4.5L7 8M11 4.5H1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </article>
+
+    <article class="work-card" data-category="visual">
       <div class="work-thumb">
-        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80" alt="ブランドビジュアルデザインのサンプル" loading="lazy">
-        <div class="work-thumb-overlay" aria-hidden="true"></div>
+        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80" alt="ブランドビジュアルデザイン" loading="lazy">
       </div>
-      <div class="work-info">
-        <div class="work-category">Visual Design / Branding</div>
-        <div class="work-title">BRAND VISUAL</div>
-        <div class="work-desc">ブランドロゴ・バナー・SNSビジュアル制作。PhotoshopとIllustratorで一貫したブランドイメージを構築。</div>
-        <div class="work-tags">
-          <span class="work-tag">Photoshop</span>
-          <span class="work-tag">Illustrator</span>
-          <span class="work-tag">Branding</span>
+      <div class="work-body">
+        <div class="work-category-tag">Visual Design / Branding</div>
+        <h3 class="work-title-text">BRAND VISUAL</h3>
+        <p class="work-desc-text">ブランドロゴ・バナー・SNSビジュアル制作。PhotoshopとIllustratorで一貫したブランドイメージを構築。</p>
+        <div class="work-tech-tags">
+          <span class="work-tech-tag">Photoshop</span>
+          <span class="work-tech-tag">Illustrator</span>
+          <span class="work-tech-tag">Branding</span>
         </div>
-        <button class="work-detail-btn" onclick="openModal('modal3')" aria-haspopup="dialog">制作プロセスを見る</button>
       </div>
-    </div>
+      <div class="work-action">
+        <button class="btn-work-detail" onclick="openModal('m3')" aria-haspopup="dialog">
+          制作プロセスを見る
+          <svg width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true">
+            <path d="M7 1L11 4.5M11 4.5L7 8M11 4.5H1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </article>
   </div>
 </section>
 
-<!-- MODAL 1: MOTOGEAR JP -->
-<div class="modal-overlay" id="modal1" role="dialog" aria-modal="true" aria-labelledby="modal1-title" onclick="closeModalOutside(event, 'modal1')">
-  <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title" id="modal1-title">MOTOGEAR JP</div>
-      <button class="modal-close" onclick="closeModal('modal1')" aria-label="閉じる">✕</button>
+<!-- ── MODAL 1 ── -->
+<div class="modal-backdrop" id="m1" role="dialog" aria-modal="true" aria-labelledby="m1-title" onclick="closeOnBackdrop(event,'m1')">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 class="modal-head-title" id="m1-title">MOTOGEAR JP</h2>
+      <button class="modal-close-btn" onclick="closeModal('m1')" aria-label="閉じる">✕</button>
     </div>
-    <div class="modal-body">
+    <div class="modal-content">
       <div class="modal-section">
-        <div class="modal-section-label">制作目的</div>
-        <p>バイクパーツ輸入販売サイトのUI/UX改善を目的としたリニューアルデザイン。既存サイトの情報量は豊富だが視認性が低く、ユーザーが求める情報に辿り着きにくい課題を解決するために制作。</p>
+        <div class="modal-section-title">制作目的</div>
+        <p>バイクパーツ輸入販売サイトのUI/UX改善を目的としたリニューアルデザイン。情報量は豊富だが視認性が低く、ユーザーが求める情報に辿り着きにくい課題を解決するために制作。</p>
       </div>
       <div class="modal-section">
-        <div class="modal-section-label">工夫したポイント</div>
+        <div class="modal-section-title">工夫したポイント</div>
         <ul class="modal-list">
           <li>ダークテーマを採用し、バイク・モータースポーツのブランドイメージと統一</li>
           <li>IntersectionObserver APIを使ったスクロールフェードインアニメーション</li>
@@ -1577,18 +1693,18 @@
         </ul>
       </div>
       <div class="modal-section">
-        <div class="modal-section-label">使用技術</div>
-        <div class="modal-tech-tags">
-          <span class="modal-tech-tag">HTML5</span>
-          <span class="modal-tech-tag">CSS3</span>
-          <span class="modal-tech-tag">JavaScript</span>
-          <span class="modal-tech-tag">GitHub Pages</span>
-          <span class="modal-tech-tag">Google Fonts</span>
-          <span class="modal-tech-tag">IntersectionObserver API</span>
+        <div class="modal-section-title">使用技術</div>
+        <div class="modal-tags">
+          <span class="modal-tag">HTML5</span>
+          <span class="modal-tag">CSS3</span>
+          <span class="modal-tag">JavaScript</span>
+          <span class="modal-tag">GitHub Pages</span>
+          <span class="modal-tag">Google Fonts</span>
+          <span class="modal-tag">IntersectionObserver API</span>
         </div>
       </div>
       <div class="modal-section">
-        <div class="modal-section-label">レスポンシブ対応</div>
+        <div class="modal-section-title">レスポンシブ対応</div>
         <ul class="modal-list">
           <li>768px・480pxの2段階ブレイクポイントで対応</li>
           <li>スマホ時はハンバーガーメニューに切り替え</li>
@@ -1600,20 +1716,20 @@
   </div>
 </div>
 
-<!-- MODAL 2: CORPORATE SITE -->
-<div class="modal-overlay" id="modal2" role="dialog" aria-modal="true" aria-labelledby="modal2-title" onclick="closeModalOutside(event, 'modal2')">
-  <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title" id="modal2-title">CORPORATE SITE</div>
-      <button class="modal-close" onclick="closeModal('modal2')" aria-label="閉じる">✕</button>
+<!-- ── MODAL 2 ── -->
+<div class="modal-backdrop" id="m2" role="dialog" aria-modal="true" aria-labelledby="m2-title" onclick="closeOnBackdrop(event,'m2')">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 class="modal-head-title" id="m2-title">CORPORATE SITE</h2>
+      <button class="modal-close-btn" onclick="closeModal('m2')" aria-label="閉じる">✕</button>
     </div>
-    <div class="modal-body">
+    <div class="modal-content">
       <div class="modal-section">
-        <div class="modal-section-label">制作目的</div>
+        <div class="modal-section-title">制作目的</div>
         <p>中小企業向けコーポレートサイトのUIデザイン。信頼感・清潔感を重視しながら、ブランドの個性を打ち出せるデザインを目指した。Figmaでワイヤーフレーム→プロトタイプ→実装の一貫したプロセスで制作。</p>
       </div>
       <div class="modal-section">
-        <div class="modal-section-label">工夫したポイント</div>
+        <div class="modal-section-title">工夫したポイント</div>
         <ul class="modal-list">
           <li>Figmaでコンポーネントを設計し、デザインの一貫性を担保</li>
           <li>余白・タイポグラフィを意識した読みやすいレイアウト</li>
@@ -1622,17 +1738,17 @@
         </ul>
       </div>
       <div class="modal-section">
-        <div class="modal-section-label">使用技術</div>
-        <div class="modal-tech-tags">
-          <span class="modal-tech-tag">Figma</span>
-          <span class="modal-tech-tag">HTML5</span>
-          <span class="modal-tech-tag">CSS3</span>
-          <span class="modal-tech-tag">CSS Variables</span>
-          <span class="modal-tech-tag">GitHub Pages</span>
+        <div class="modal-section-title">使用技術</div>
+        <div class="modal-tags">
+          <span class="modal-tag">Figma</span>
+          <span class="modal-tag">HTML5</span>
+          <span class="modal-tag">CSS3</span>
+          <span class="modal-tag">CSS Variables</span>
+          <span class="modal-tag">GitHub Pages</span>
         </div>
       </div>
       <div class="modal-section">
-        <div class="modal-section-label">レスポンシブ対応</div>
+        <div class="modal-section-title">レスポンシブ対応</div>
         <ul class="modal-list">
           <li>モバイルファーストで設計し、PC向けに拡張</li>
           <li>ナビゲーションをスマホ時にドロワーメニューへ切り替え</li>
@@ -1643,20 +1759,20 @@
   </div>
 </div>
 
-<!-- MODAL 3: BRAND VISUAL -->
-<div class="modal-overlay" id="modal3" role="dialog" aria-modal="true" aria-labelledby="modal3-title" onclick="closeModalOutside(event, 'modal3')">
-  <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title" id="modal3-title">BRAND VISUAL</div>
-      <button class="modal-close" onclick="closeModal('modal3')" aria-label="閉じる">✕</button>
+<!-- ── MODAL 3 ── -->
+<div class="modal-backdrop" id="m3" role="dialog" aria-modal="true" aria-labelledby="m3-title" onclick="closeOnBackdrop(event,'m3')">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 class="modal-head-title" id="m3-title">BRAND VISUAL</h2>
+      <button class="modal-close-btn" onclick="closeModal('m3')" aria-label="閉じる">✕</button>
     </div>
-    <div class="modal-body">
+    <div class="modal-content">
       <div class="modal-section">
-        <div class="modal-section-label">制作目的</div>
-        <p>新規ブランドのビジュアルアイデンティティ構築。ロゴ・バナー・SNS投稿素材を一貫したトーン&マナーで制作し、ブランドの世界観を統一することを目的とした。</p>
+        <div class="modal-section-title">制作目的</div>
+        <p>新規ブランドのビジュアルアイデンティティ構築。ロゴ・バナー・SNS投稿素材を一貫したトーン&amp;マナーで制作し、ブランドの世界観を統一することを目的とした。</p>
       </div>
       <div class="modal-section">
-        <div class="modal-section-label">工夫したポイント</div>
+        <div class="modal-section-title">工夫したポイント</div>
         <ul class="modal-list">
           <li>ブランドカラーとフォントを定義したスタイルガイドを先に作成</li>
           <li>Illustratorでロゴをベクターで制作し、あらゆるサイズに対応</li>
@@ -1665,35 +1781,35 @@
         </ul>
       </div>
       <div class="modal-section">
-        <div class="modal-section-label">使用技術</div>
-        <div class="modal-tech-tags">
-          <span class="modal-tech-tag">Adobe Photoshop</span>
-          <span class="modal-tech-tag">Adobe Illustrator</span>
-          <span class="modal-tech-tag">Figma</span>
+        <div class="modal-section-title">使用技術</div>
+        <div class="modal-tags">
+          <span class="modal-tag">Adobe Photoshop</span>
+          <span class="modal-tag">Adobe Illustrator</span>
+          <span class="modal-tag">Figma</span>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- FOOTER -->
+<!-- ── FOOTER ── -->
 <footer>
-  <div class="footer-top">
+  <div class="footer-grid">
     <div>
-      <a href="#" class="footer-logo">MOTO<span>GEAR</span> JP</a>
-      <p class="footer-tagline">旧車から最新バイク部品まで — 走りを極める全てのライダーへ</p>
+      <a href="#" class="footer-logo">Moto<em>Gear</em> JP</a>
+      <p class="footer-tagline">旧車から最新バイク部品まで。<br>走りを極める全てのライダーへ。</p>
     </div>
-    <div class="footer-links">
-      <h4>Products</h4>
+    <div class="footer-col">
+      <h4>Brands</h4>
       <ul>
-        <li><a href="#">R&amp;G Racing Products</a></li>
+        <li><a href="#">R&amp;G Racing</a></li>
         <li><a href="#">Barkbusters</a></li>
         <li><a href="#">MOTOGRAFIX</a></li>
         <li><a href="#">DENALI</a></li>
         <li><a href="#">ATHENA</a></li>
       </ul>
     </div>
-    <div class="footer-links">
+    <div class="footer-col">
       <h4>Category</h4>
       <ul>
         <li><a href="#">フェンダーレスキット</a></li>
@@ -1703,7 +1819,7 @@
         <li><a href="#">ヴィンテージ</a></li>
       </ul>
     </div>
-    <div class="footer-links">
+    <div class="footer-col">
       <h4>Info</h4>
       <ul>
         <li><a href="#">新着情報</a></li>
@@ -1714,111 +1830,96 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2026 MOTOGEAR JP — Web Design Portfolio Sample by AINE</p>
-    <p class="footer-credit">
-      HTML / CSS / JavaScript — レスポンシブ対応済み — <strong>GitHub Pages 動作確認済み</strong>
-    </p>
+    <p class="footer-copy">© 2026 MotoGear JP. All rights reserved.</p>
+    <p class="footer-credit">Web Design Portfolio — <strong>Designed for NEXXS JAPAN Application</strong></p>
   </div>
 </footer>
 
 <script>
-  // ── モーダル ──
-  function openModal(id) {
-    const modal = document.getElementById(id);
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
+// ── Modal ──
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeOnBackdrop(e, id) {
+  if (e.target === document.getElementById(id)) closeModal(id);
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-backdrop.open').forEach(m => {
+      m.classList.remove('open');
+      document.body.style.overflow = '';
+    });
   }
-  function closeModal(id) {
-    document.getElementById(id).classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  function closeModalOutside(e, id) {
-    if (e.target === document.getElementById(id)) closeModal(id);
-  }
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') {
-      document.querySelectorAll('.modal-overlay.open').forEach(m => {
-        m.classList.remove('open');
-        document.body.style.overflow = '';
-      });
+});
+
+// ── Hamburger ──
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobileNav');
+hamburger.addEventListener('click', () => {
+  const open = mobileNav.classList.toggle('open');
+  hamburger.classList.toggle('open', open);
+  hamburger.setAttribute('aria-expanded', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+function closeMobileNav() {
+  mobileNav.classList.remove('open');
+  hamburger.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+
+// ── Works Filter ──
+const filterBtns = document.querySelectorAll('.works-filter-btn');
+const workCards = document.querySelectorAll('.work-card');
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    workCards.forEach(c => {
+      c.classList.toggle('hidden', f !== 'all' && c.dataset.category !== f);
+    });
+  });
+});
+
+// ── Scroll Reveal ──
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 60);
+      revealObs.unobserve(e.target);
     }
   });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
-  // ── ハンバーガーメニュー ──
-  const hamburger = document.getElementById('hamburger');
-  const mobileNav = document.getElementById('mobileNav');
-
-  hamburger.addEventListener('click', () => {
-    const isOpen = mobileNav.classList.toggle('open');
-    hamburger.classList.toggle('open');
-    hamburger.setAttribute('aria-expanded', isOpen);
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-  });
-
-  function closeMobileNav() {
-    mobileNav.classList.remove('open');
-    hamburger.classList.remove('open');
-    hamburger.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-  }
-
-  // ── Worksフィルター ──
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const workCards = document.querySelectorAll('.work-card');
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.dataset.filter;
-      workCards.forEach(card => {
-        if (filter === 'all' || card.dataset.category === filter) {
-          card.classList.remove('hidden');
-        } else {
-          card.classList.add('hidden');
-        }
+// ── Skill Bars ──
+const skillObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
+        const target = bar.dataset.w;
+        bar.style.width = '0';
+        setTimeout(() => { bar.style.width = target; }, 150);
       });
-    });
+      skillObs.unobserve(e.target);
+    }
   });
+}, { threshold: 0.2 });
+document.querySelectorAll('.skills-stack').forEach(el => skillObs.observe(el));
 
-  // ── スクロールフェードイン ──
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 80);
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-  // ── スキルバーアニメーション ──
-  const skillObserver = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.querySelectorAll('.skill-bar').forEach(bar => {
-          const width = bar.style.width;
-          bar.style.width = '0';
-          setTimeout(() => { bar.style.width = width; }, 200);
-        });
-        skillObserver.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.3 });
-
-  document.querySelectorAll('.skills-grid').forEach(el => skillObserver.observe(el));
-
-  // ── スムーススクロール ──
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
+// ── Smooth Scroll ──
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   });
+});
 </script>
 </body>
 </html>
